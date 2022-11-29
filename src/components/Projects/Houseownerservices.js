@@ -25,7 +25,7 @@ const Homeservices = (props) => {
             </NavLink>
           </li>
           <li>
-            <NavLink to ='/Payments' className={classes.usertext}>
+            <NavLink to ='/payments' className={classes.usertext}>
              <img src={img3}/>
               <h4>Bill Payment</h4>
             </NavLink>
@@ -37,7 +37,7 @@ const Homeservices = (props) => {
             </NavLink>
           </li>
           <li>
-            <NavLink to ='/Bookingstatus' className={classes.usertext}>
+            <NavLink to ='/bookingstatus' className={classes.usertext}>
           <img src={img2}/> 
               <h4>Booking Status</h4>
             </NavLink>

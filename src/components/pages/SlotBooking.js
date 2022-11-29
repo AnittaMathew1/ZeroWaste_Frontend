@@ -8,192 +8,123 @@ import './SlotBooking.css';
 
 
 const SlotBooking = (props) => {
-  
+  var validated =false
+const [message, setMessage] = useState('');
+const [password, setPassword] = useState('');
+const [wasteid, setWasteid] = useState('');
+const [redirect, setRedirect] = useState(false);
+const [wasteData, setWasteData] = useState();
 
-      const emailInitialState = {
-        enteredEmail: '',
-        emailIsValid: null
-      };
+useEffect(()=>{
+  getWasteData();
+},[]);
 
-      const passwordInitialState = {
-        enteredPassword: '',
-        passwordIsValid: null
-      };
+const getWasteData = () => {
+  fetch("http://127.0.0.1:8000/zerowaste/wastelist/", 
+  {
+    method: "GET",
+  }).then((response) => {
+      // console.log("response Ward data: ", response.json());
+      return response.json();
+    })
+    .then(function (data) {
+      setWasteData(data);
+    })
+    .catch(err => {
+      console.log(err);
+    }); 
+}
 
-
-        const emailHandler = (prevState,action)=>{
-
-          if(action.type === 'emailchange'){
-            return {enteredEmail: action.payload,
-                    emailIsValid: action.payload.includes('@')}
-          }
-          if(action.type === 'emailvalidity'){
-            return{enteredEmail: prevState.enteredEmail,
-              emailIsValid: prevState.enteredEmail.includes('@')}
-          }
-          return{enteredEmail: '',
-            emailIsValid: false}
-        };
-
-        const passwordHandler = (prevState,action) => {
-
-          if(action.type === 'passwordchange'){
-            return {enteredPassword: action.payload,
-                    passwordIsValid: action.payload.trim().length > 6}
-          }
-          if(action.type === 'passwordvalidity'){
-            return{enteredPassword: prevState.enteredPassword,
-                    passwordIsValid: prevState.enteredPassword.trim().length > 6}
-          }
-          return{enteredPassword: '',
-                  passwordIsValid: false}
-        };
-
-
-  const [emailCurrentState,dispatchEmail] = useReducer(emailHandler,emailInitialState);
-  const [passwordCurrentState,dispatchPassword] = useReducer(passwordHandler,passwordInitialState);
-  const [formIsValid, setFormIsValid] = useState(false);
-  const [wasteData, setWasteData] = useState();
+const handleMessage = (e) => {
+  setMessage(e.target.value);
+}
+const handleWasteid =(e)=> {
+  e.preventDefault();
+  setWasteid(e.target.value);
+  console.log(e.target.value)
+  // console.log(wardno)
+}
+  const handleDate = (e) => {
+    setMessage(e.target.value);
+  // console.log(email)
+}
 
 
-  
-  useEffect(()=>{
-    const identifier = setTimeout(()=>{
-      console.log("validity check");
+const handleRegister = () => {
+  this.validateFormValues();
+  if(validated) 
+  {
+    fetch("http://127.0.0.1:8000/zerowaste/houseowner/signup/", {
+    headers: { "Content-Type": "application/json" },
+    method: "POST",
+    body: JSON.stringify({
+      message: message,
+      wasteid:wasteid,
+      
+    })
+  })
+    .then(response => {
+      console.log("request: ", response);
+      return response.json();
+    })
+    .then(resJson => {
+      console.log("response: ", resJson);
 
-    setFormIsValid(
-      emailCurrentState.enteredEmail.includes('@') && passwordCurrentState.enteredPassword.trim().length > 6
-    );
-    },500);
-    return()=>{
-      console.log('CLEANUP');
-      clearTimeout(identifier);
-    };
-    
-  },[emailCurrentState, passwordCurrentState]);
+    })
+    .catch(err => {
+      
+      console.log(err);
+    }); 
+  }
 
-  
-  const emailChangeHandler = (event) => {
-    dispatchEmail({type:'emailchange',payload: event.target.value})
-  };
-
-  const validateEmailHandler = () => {
-    dispatchEmail({type:'emailvalidity'})
-  };
-
-  const passwordChangeHandler = (event) => {
-    dispatchPassword({type:'passwordchange',payload: event.target.value})
-  };
-
-  const validatePasswordHandler = () => {
-    dispatchPassword({type:'passwordvalidity'})
-  };
-
-  const getWasteData = () => {
-    fetch("https://wastetype-13932-default-rtdb.firebaseio.com//wastetype.json", 
-    {
-      method: "GET",
-    }).then((response) => {
-        console.log("response Waste data: ", response.json());
-        return response.json();
-      })
-      .then(function (data) {
-        setWasteData(data);
-      })
-      .catch(err => {
-        console.log(err);
-      }); 
-    };
-  const submitHandler = async (event) => {
-    event.preventDefault();
-    let email=emailCurrentState.enteredEmail;
-    let password=passwordCurrentState.enteredPassword;
-    // props.onLogin(emailCurrentState.enteredEmail, passwordCurrentState.enteredPassword)
-   
-  };
+  //   console.log(firstnameValidationError,pincode); 
+}
 
   return (
-    <div className={classes.houseowner}>
-      <h1>Book your Slot</h1>
-      <form onSubmit={submitHandler}>
-        <div
-          className={`${classes.control} ${
-            emailCurrentState.emailIsValid === false ? classes.invalid : ''
-          }`}
-        >
-        {/* <label className="itemm">Waste Type :
-       <div className="checkbox"> */}
-        {/* <select value="value-2" > */}
-          {/* {wasteData?.map(waste => {
-              return (
-                <div>
-                  
-                <input type="checkbox"  value={waste.wastetype}/>
-                <label key={waste.wastetype} value={waste.wastetype}>{waste.wastetype}</label>
-              
-              </div>);
-          })} */}
-        {/* </select> */}
-      {/* </div></label> */}
-      {/* {wardnoValidationError && <div className="errormessage">{wardnoValidationError}</div>} */}
+    <div className="register">
+      <h2 className="registerhead">Book Your Slot</h2>
+      
+      <label className="itemm"><b>Add Message : </b>
+      <input className="inputarea" type="text" name="message" onChange={() =>handleMessage()}
+        /> </label>
+      <label className="itemm"><b>Waste Type :</b>
+       {/* <input className="inputarea" type="text" name="wardno" onChange={()=>handleWardno()} />  */}
+       <div className="dropdown">
+        <select className="dropdownn" onChange={(e) => handleWasteid(e)}>
+          {wasteData?.map(waste => {
+              return (<option key={waste.wasteid} value={waste.wasteid}>{waste.waste_type}</option>);
+          })}
+        </select>
+      </div></label>
+      <div className='slotdate'>
+         <label htmlFor="password"><b>Select Date:</b></label>
+         <input type="date" id="slotdate" name="birthday" onChange={(e) =>handleDate(e)}/>
+         </div>
+      {/* {wasteidValidationError && <div className="errormessage">{wasteidValidationError}</div>} */}
 
-          <label htmlFor="email">Waste Type</label>
-          {/* <input
-            type="email"
-            id="email"
-            value={emailCurrentState.enteredEmail}
-            onChange={emailChangeHandler}
-            onBlur={validateEmailHandler}
-          /> */}
-          
-          <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"/>
-              <label for="vehicle1"> Plastic</label>
-              <input type="checkbox" id="vehicle2" name="vehicle2" value="Car"/>
-              <label for="vehicle2"> FoodWaste</label>
-              <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat"/>
-              <label for="vehicle3"> Glass</label><br></br>
-              <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat"/>
-              <label for="vehicle3"> Metal</label>
-              <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat"/>
-              <label for="vehicle3"> E-waste</label>
-        </div>  
-        <div
-          className={`${classes.control} ${
-            passwordCurrentState.passwordIsValid === false ? classes.invalid : ''
-          }`}
-        >
-          <label htmlFor="password">Add message</label>
-          <input
-            type="text"
-            id="password"
-            value={passwordCurrentState.enteredPassword}
-            onChange={passwordChangeHandler}
-            onBlur={validatePasswordHandler}
-          />
-        </div>
-        <div className='slotdate'>
-        <label htmlFor="password"><b>Select Date:</b></label>
-        <input type="date" id="birthday" name="birthday"/>
-        </div>
-        <div className={classes.actions}>
-        <Nav
-              as={Link}
-              to="/slotbooked"
-              >
-          <Button type="submit" className={classes.btn} >
-           {/* <a href='/welcome'> */}
-           
-            Submit
-            
-             {/* </a> */}
-          </Button>
-          </Nav>
-        </div>
-        {/* <div className='row2'>
-              <p>Don't have an Account? <a href="/register">Register</a></p>
-              </div> */}
-      </form>
+       <Nav
+            as={Link}
+            to="/houseownerservices"
+            > 
+        <Button type="submit" className={classes.btn} >
+          Submit
+        </Button>
+         </Nav> 
+    {/*         
+      <button className="submit" onClick={this.handleRegister}>Submit</button>
+      {redirect && <Nav.Item>
+            <Nav.Link
+            as={Link}
+            to="/welcome"
+              // href="https://blogs.soumya-jit.tech/"
+              // target="_blank"
+              // rel="noreferrer"
+            />
+          </Nav.Item>} */}
+          <div className='row2'>
+            <p>Already have an Account? <a href="/login">Register</a></p>
+            </div>
     </div>
   );
-};
+}
 export default SlotBooking;

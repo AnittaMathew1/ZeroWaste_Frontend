@@ -92,14 +92,14 @@ const Login = (props) => {
     event.preventDefault();
     let email=emailCurrentState.enteredEmail;
     let password=passwordCurrentState.enteredPassword;
-    if((email=="Municipality@123")&&(password=="qwerty"))
-    {
-        valid= true;
-    }
-    else{
-        valid=false;
-    }
-    console.log(valid);
+    // if((email=="Municipality@123")&&(password=="qwerty"))
+    // {
+    //     valid= true;
+    // }
+    // else{
+    //     valid=false;
+    // }
+    // console.log(valid);
     // props.onLogin(emailCurrentState.enteredEmail, passwordCurrentState.enteredPassword)
     const response = await fetch('https://houseownerlogin-default-rtdb.firebaseio.com/houseowner.json', {
       method: 'POST',
@@ -146,14 +146,14 @@ const Login = (props) => {
           />
         </div>
         <div className={classes.actions}>
-        {/* <Nav
+        <Nav
               as={Link}
               to="/municipalityservices"
-              > */}
+              >
           <Button type="submit" className={classes.btn} disabled={!formIsValid}>           
             Login
           </Button>
-          {/* </Nav> */}
+          </Nav>
         </div>
       </form>
     </div>

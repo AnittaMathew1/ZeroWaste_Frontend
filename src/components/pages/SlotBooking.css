@@ -2,4 +2,15 @@
     margin-bottom: 40px;
     text-decoration: solid;
     color: rgb(60, 59, 59);
+    text-align: left;
+    margin-left: 40px;
 }
+.itemm
+{
+    color: rgb(60, 59, 59);
+    text-decoration: solid;
+}
+/* .dropdownn{
+    width: 80px;
+    height: 35px;
+} */

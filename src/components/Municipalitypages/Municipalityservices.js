@@ -1,5 +1,5 @@
 
-import classes from '../Projects/Houseownerservices.module.css';
+import classes from './Municipalityservices.module.css';
 import img from './imgg1.png'
 import img1 from './img1.png'
 import img2 from './img2.png'
@@ -19,29 +19,29 @@ const Homeservices = (props) => {
       <div className={classes.logolinks}>
         <ul>
           <li>
-            <NavLink to = "/slotbook" className={classes.usertext}>
+            <NavLink to = "/bookingstatusreport" className={classes.usertext}>
                <img src={img}/> 
-              <h4>Slot Booking</h4>
+              <h4>Booking Status Report</h4>
             </NavLink>
           </li>
           <li>
             <NavLink to ='/Payments' className={classes.usertext}>
              <img src={img3}/>
-              <h4>Bill Payment</h4>
+              <h4>Payment Report</h4>
             </NavLink>
           </li>
           <li>
             <NavLink to ='/BookingHistory' className={classes.usertext}>
            <img src={img1}/>   
-              <h4>Booking History</h4>
+              <h4>Update Waste details</h4>
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to ='/Bookingstatus' className={classes.usertext}>
           <img src={img2}/> 
               <h4>Booking Status</h4>
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </div>
 

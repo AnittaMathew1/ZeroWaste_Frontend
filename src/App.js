@@ -4,13 +4,14 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home/Home";
 import About from "./components/About/About";
 import Login from "./components/Projects/Login";
-import Msignin from "./components/Projects/msignin";
-import Bookinghistory from "./components/pages/BookingHistory";
-import Bookingstatus from "./components/pages/Bookingstatus";
+import Msignin from "./components/Municipalitypages/Municipalitylogin";
+// import Bookinghistory from "./components/pages/BookingHistory";
+// import Bookingstatus from "./components/pages/Bookingstatus";
 import Slotbooking from "./components/pages/SlotBooking";
-import Payment from "./components/pages/Payments";
+import Payments from "./components/Projects/Payments";
 import Houseownerservices from "./components/Projects/Houseownerservices";
-// import Corporation from "./components/Municipalitypages/Municipalityservices";
+import Municipalityservices from "./components/Municipalitypages/Municipalityservices";
+import Bookingstatusreport from "./components/Municipalitypages/Bookingstatusreport";
 // import Register from "./components/Projects/Register";
 import Footer from "./components/Footer";
 import Resume from "./components/Resume/ResumeNew";
@@ -25,8 +26,11 @@ import "./style.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Register from "./components/Projects/Register";
+import BookingHistory from "./components/Projects/BookingHistory";
 import Slotbooked from "./components/pages/Slotbooked";
 import Municipalitylogin from "./components/Municipalitypages/Municipalitylogin"
+import Bookingstatus from "./components/Projects/Bookingstatus";
+// import Payments from "./components/pages/Payments";
 
 function App() {
   const [load, upadateLoad] = useState(true);
@@ -53,13 +57,17 @@ function App() {
           <Route path="/resume" element={<Resume />} />
           <Route path="/register" element={<Register />} />
           <Route path="/houseownerservices" element={<Houseownerservices />} />
-          {/* <Route path="/houseownerservices" element={<Municipalityservices/>} /> */}
-          <Route path="/bookinghistory" element={<Bookinghistory />} />
+          <Route path="/municipalityservices" element={<Municipalityservices/>} />
+          <Route path="/bookinghistory" element={<BookingHistory />} />
           <Route path="/bookingstatus" element={<Bookingstatus />} />
-          <Route path="/payment" element={<Payment />} />
+          {/* <Route path="/payment" element={<Payment />} /> */}
           <Route path="/slotbook" element={<Slotbooking />} />
           <Route path="/slotbooked" element={<Slotbooked />} />
           <Route path="/municipalitylogin" element={<Municipalitylogin />} />
+          <Route path="/bookingstatusreport" element={<Bookingstatusreport />} />
+          <Route path="/bookinghistory" element={<BookingHistory />} />
+          <Route path="/bookingstatus" element={<Bookingstatus />} />
+          <Route path="/payments" element={<Payments />} />
           <Route path="*" element={<Navigate to="/"/>} />
         </Routes>
         <Footer />
