@@ -1,8 +1,15 @@
 .bookingstatusreport{
-    margin-top: 60px;
+    margin-top: 20px;
     margin-bottom: 150px;
 }
 .statushead{
     margin-top: 100px;
     margin-bottom: 40px;
+}
+.slotdate{
+    align-items: center;
+    margin-left: 100px;
+}
+.table{
+margin-top: 40px;
 }

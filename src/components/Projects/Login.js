@@ -1,184 +1,243 @@
-import React, { useEffect, useState , useReducer} from 'react';
-import classes from './Login.module.css';
-import Button from './Button';
-import { Nav } from "react-bootstrap";
-import { Link, useNavigate } from 'react-router-dom';
-// import { Link } from "react-bootstrap";
-
-const Login = (props) => {
-  const navigate = useNavigate();
-
-  const emailInitialState = {
-    enteredEmail: '',
-    emailIsValid: null
-  };
-
-  const passwordInitialState = {
-    enteredPassword: '',
-    passwordIsValid: null
-  };
-  const [routePath, setRoutePath] = useState('/');
-  const [isNavDisabled, setIsNavDisabled] = useState(true);
-
-
-  const emailHandler = (prevState,action)=>{
-    if(action.type === 'emailchange'){
-      return {enteredEmail: action.payload,
-              emailIsValid: action.payload.includes('@')}
-    }
-    if(action.type === 'emailvalidity'){
-      return{enteredEmail: prevState.enteredEmail,
-        emailIsValid: prevState.enteredEmail.includes('@')}
-    }
-    return{enteredEmail: '',
-      emailIsValid: false}
-  };
-
-  const passwordHandler = (prevState,action) => {
-
-    if(action.type === 'passwordchange'){
-      return {enteredPassword: action.payload,
-              passwordIsValid: action.payload.trim().length > 6}
-    }
-    if(action.type === 'passwordvalidity'){
-      return{enteredPassword: prevState.enteredPassword,
-              passwordIsValid: prevState.enteredPassword.trim().length > 6}
-    }
-    return{enteredPassword: '',
-            passwordIsValid: false}
-  };
-
-
-  const [emailCurrentState,dispatchEmail] = useReducer(emailHandler,emailInitialState);
-  const [passwordCurrentState,dispatchPassword] = useReducer(passwordHandler,passwordInitialState);
-
-  const [formIsValid, setFormIsValid] = useState(false);
-
-
+// import React, { useEffect, useState , useReducer} from 'react';
+// import classes from './Login.module.css';
+// import Button from './Button';
+// import { Nav } from "react-bootstrap";
+// import { Link, useNavigate } from 'react-router-dom';
+// // import { Link } from "react-bootstrap";
+  import { useState, useRef, useContext,useEffect } from 'react';
+  import { useHistory } from 'react-router-dom';
+  import { Link,useNavigate } from "react-router-dom";
+  import AuthContext from './auth-context';
+  import classes from './AuthForm.module.css';
   
-  useEffect(()=>{
-    const identifier = setTimeout(()=>{
-      console.log("validity check");
-
-    setFormIsValid(
-      emailCurrentState.enteredEmail.includes('@') && passwordCurrentState.enteredPassword.trim().length > 6
-    );
-    },500);
-    return()=>{
-      console.log('CLEANUP');
-      clearTimeout(identifier);
+  const Login = (props) => {
+    const navigate=useNavigate();
+    const [redirect, setRedirect] = useState(false);
+    const [userValidationError, setuserValidationError] = useState('');
+    // const history = useHistory();
+    const firstnameInputRef = useRef();
+    const lastnameInputRef = useRef();
+    const addressInputRef = useRef();
+    const pincodeInputRef = useRef();
+    const wardInputRef = useRef();
+    const phonenoInputRef = useRef();
+    const emailInputRef = useRef();
+    const passwordInputRef = useRef();
+    const authCtx = useContext(AuthContext);
+    // const [issignup,setIssignup]=useState(true)
+    const [isLogin, setIsLogin] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const [wardData, setWardData] = useState();
+    const [wardno, setWardNo] = useState('');
+    const switchAuthModeHandler = () => {
+      setIsLogin((prevState) => !prevState);
     };
-    
-  },[emailCurrentState, passwordCurrentState]);
+    // const handleWardno =(e)=> {
+    //   e.preventDefault();
+    //   setWardNo(e.target.value);
+    //   console.log(e.target.value)
+    //   // console.log(wardno)
+    // }
+    useEffect(()=>{
+      getWardData();
+    },[]);
+    // ajay code for signup start***********
+    function signuphandler() {
+     
+      const enteredfirstname = firstnameInputRef.current.value;
+      const enteredlastname = lastnameInputRef.current.value;
+      const enteredaddress = addressInputRef.current.value;
+      const enteredpincode = pincodeInputRef.current.value;
+      const enteredward = wardInputRef.current.value;
+      const enteredphoneno = phonenoInputRef.current.value;
+      const enteredEmail = emailInputRef.current.value;
+      const enteredPassword = passwordInputRef.current.value;
 
-  
-  const emailChangeHandler = (event) => {
-    dispatchEmail({type:'emailchange',payload: event.target.value})
-  };
-
-  const validateEmailHandler = () => {
-    dispatchEmail({type:'emailvalidity'})
-  };
-
-  const passwordChangeHandler = (event) => {
-    dispatchPassword({type:'passwordchange',payload: event.target.value})
-  };
-
-  const validatePasswordHandler = () => {
-    dispatchPassword({type:'passwordvalidity'})
-  };
-
-  const submitHandler = async (event) => {
-    debugger
-
-    event.preventDefault();
-    let email=emailCurrentState.enteredEmail;
-    let password=passwordCurrentState.enteredPassword;
-    // props.onLogin(emailCurrentState.enteredEmail, passwordCurrentState.enteredPassword)
-    fetch('http://127.0.0.1:8000/zerowaste/houseowner/login/', {
-      method: 'POST',
-      body:JSON.stringify({email,
-        password,
-      })
-      // headers: {
-      //   'Content-Type': 'application/json'
-      // }
-    })
-    .then(response => {
-      console.log("request: ", response);
-    })
-    .then(resJson => {
-      console.log("response: ", resJson);
-
-    })
-    .catch(err => {
+      setIsLoading(true);
+      let url;
       
-      console.log(err);
-    }); 
-    console.log(JSON.stringify({email,password}));
-    navigate('/houseownerservices');
-    setIsNavDisabled(false);
-    
-   
-  };
-
-  return (
-    <div className={classes.houseowner}>
-      <h1>Login</h1>
-      <form onSubmit={submitHandler}>
-        <div
-          className={`${classes.control} ${
-            emailCurrentState.emailIsValid === false ? classes.invalid : ''
-          }`}
-        >
-          <label htmlFor="email">E-Mail</label>
-          <input
-            type="email"
-            id="email"
-            value={emailCurrentState.enteredEmail}
-            onChange={emailChangeHandler}
-            onBlur={validateEmailHandler}
-          />
-        </div>
-        <div
-          className={`${classes.control} ${
-            passwordCurrentState.passwordIsValid === false ? classes.invalid : ''
-          }`}
-        >
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={passwordCurrentState.enteredPassword}
-            onChange={passwordChangeHandler}
-            onBlur={validatePasswordHandler}
-          />
-        </div>
-        <div className={classes.actions}>
-        {/* <Nav
-              as={Link}
-              to={routePath}
-              disabled={isNavDisabled}
-              > */}
-          <Button type="submit" 
-            className={classes.btn} 
-            disabled={!formIsValid}
-            onClick={(e) => submitHandler(e)}
-          >
-           {/* <a href='/welcome'> */}
-           
-            Login
+      url =
+          'http://127.0.0.1:8000/zerowaste/houseowner/signup/';
+          // const myJSON = JSON.stringify({
+          //   name: enteredName,
+          //   email: enteredEmail,
+          //   password: enteredPassword,
+          //   // returnSecureToken: true,
+          // });
+          // console.log(myJSON);
+         fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+              firstname: enteredfirstname,
+              lastname: enteredlastname,
+              address: enteredaddress,
+              pincode: enteredpincode,
+              wardno: enteredward,
+              phoneno: enteredphoneno,
+              email: enteredEmail,
+              password: enteredPassword,
+              // returnSecureToken: true,
+            }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }).then(data=>{
+            setIsLoading(false);
+            setIsLogin(true);
+          });
+    }
+    const getWardData = () => {
+      fetch("http://127.0.0.1:8000/zerowaste/wards/", 
+      {
+        method: "GET",
+      }).then((response) => {
+          // console.log("response Ward data: ", response.json());
+          return response.json();
+        })
+        .then(function (data) {
+          setWardData(data);
+          console.log(data);
+        })
+        .catch(err => {
+          console.log(err);
+        }); 
+    }
+    const submitHandler = (event) => {
+      event.preventDefault();
+      // const enteredName = nameInputRef.current.value;
+      const enteredEmail = emailInputRef.current.value;
+      const enteredPassword = passwordInputRef.current.value;
+  
+      // optional: Add validation
+  
+      setIsLoading(true);
+      let url;
+      if (isLogin) {
+        url =
+  
+          'http://127.0.0.1:8000/zerowaste/houseowner/login/';
+          fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+              // name: enteredName,
+              email: enteredEmail,
+              password: enteredPassword,
+              returnSecureToken: true,
+            }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+          .then(response => {
+            console.log("request: ", response);
+            return response.json();
             
-             {/* </a> */}
-          </Button>
-          {/* </Nav> */}
-        </div>
-        <div className='row2'>
-              <p>Don't have an Account? <a href="/register">Register</a></p>
-              </div>
-      </form>
-    </div>
-  );
-};
+          })
+            .then((res) => {
+                console.log("response: ", res);
+                console.log(res.jwt);
+                sessionStorage.setItem("jwt",res.jwt);
+                if(res.status === 1){
+                  setRedirect(true);
+                  navigate('/houseownerservices')    
+                }
+              setIsLoading(false);
+              if (res.ok) {
+                return res.json();
+              } else {
+                return res.json().then((data) => {
+                  let errorMessage = 'Authentication failed!';
+                  alert('errorMessage');
+                  console.log("responsess: ", res.detail);
+                    if(res.status === 1){
+                      // setRedirect(true);
+                      
+                      navigate('/houseownerservices')    
+                    }
+                    // else if(res.status !== 1){
+                    //   console.log("Anitta")
+                    //   setuserValidationError('Invalid Username or Password');
+                    //   alert(userValidationError);
+                    // }
+                    if(redirect==false){
+                      setuserValidationError('Invalid Username or Password');
+                      console.log(setuserValidationError);
+                    }
 
+                  if (data && data.error && data.error.message) {
+                    errorMessage = data.error.message;
+                  }
+     
+                  throw new Error(errorMessage);
+                });
+              }
+            })
+            .then((data) => {
+              authCtx.login(data.jwt);
+              console.log("hiiii",JSON.stringify(data.jwt))
+              // authCtx.setUser({userName:data.username})
+              // localStorage.setItem('jwt',JSON.stringify(data.jwt))
+            })
+            .catch((err) => {
+            });
+      } else {
+        signuphandler()
+      }
+    };
+    return (
+      <section className={classes.auth}>
+        <h1>{isLogin ? 'Login' : 'Sign up'}</h1>
+        <form onSubmit={submitHandler}>
+        {!isLogin && <div className={classes.control}>
+              <label htmlFor='name'>First name</label>
+            <input type='name' id='fname' required ref={firstnameInputRef} />
+            <label htmlFor='name'>Last name</label>
+            <input type='name' id='lname' required ref={lastnameInputRef} />
+            <label htmlFor='name'>Address</label>
+            <input type='name' id='address' required ref={addressInputRef} />
+            <label htmlFor='name'>Pincode</label>
+             <input type='name' id='pincode' required ref={pincodeInputRef} />
+             <label className="itemm">Ward :
+              <div className="dropdown">
+                <select required ref={wardInputRef} placeholder="Select Ward Number"
+               >
+          {wardData?.map(ward => {
+              return (<option key={ward.wardno} value={ward.wardno}>{ward.wardname}</option>);
+          })}
+        </select>
+        </div></label> 
+            <label htmlFor='name'>Phone Number</label>
+            <input type='text' id='phoneno' required ref={phonenoInputRef} />
+          </div>}
+          <div className={classes.control}>
+            <label htmlFor='email'>Email</label>
+            <input type='email' id='email' required ref={emailInputRef} />
+          </div>
+          <div className={classes.control}>
+            <label htmlFor='password'>Password</label>
+            <input
+              type='password'
+              id='password'
+              required
+              ref={passwordInputRef}
+            />
+          </div>
+          <div className={classes.actions}>
+            {!isLoading && (
+              <button>{isLogin ? 'Login' : 'Create Account'}</button>
+            )}
+            {isLoading && <p>Sending request...</p>}
+            <button
+              type='button'
+              className={classes.toggle}
+              onClick={switchAuthModeHandler}
+            >
+              {isLogin ? 'Create new account' : 'Login with existing account'}
+            </button>
+            {userValidationError && <div className="errormessage">{userValidationError}</div>}
+          </div>
+        </form>
+      </section>
+    );
+  };
 export default Login;

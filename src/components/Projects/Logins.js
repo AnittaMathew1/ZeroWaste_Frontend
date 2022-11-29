@@ -1,88 +1,185 @@
-import React, { Component } from "react";
+import React, { useEffect, useState , useReducer} from 'react';
+import classes from './Login.module.css';
+import Button from './Button';
 import { Nav } from "react-bootstrap";
-import './Login.css';
-class Login extends Component {
-  constructor(props) {
-    super(props);
+import { Link, useNavigate } from 'react-router-dom';
+// import { Link } from "react-bootstrap";
 
-    this.handleLogin = this.handleLogin.bind(this);
+const Login = (props) => {
+  const navigate = useNavigate();
+  const [firstnameValidationError, setFirstnameValidationError] = useState('');
+  const emailInitialState = {
+    enteredEmail: '',
+    emailIsValid: null
+  };
 
-    this.handleUsername = this.handleUsername.bind(this);
+  const passwordInitialState = {
+    enteredPassword: '',
+    passwordIsValid: null
+  };
+  const [routePath, setRoutePath] = useState('/');
+  const [isNavDisabled, setIsNavDisabled] = useState(true);
 
-    this.handlePassword = this.handlePassword.bind(this);
 
-    this.state = {
-      username: "",
-      password: ""
+  const emailHandler = (prevState,action)=>{
+    if(action.type === 'emailchange'){
+      return {enteredEmail: action.payload,
+              emailIsValid: action.payload.includes('@')}
+    }
+    if(action.type === 'emailvalidity'){
+      return{enteredEmail: prevState.enteredEmail,
+        emailIsValid: prevState.enteredEmail.includes('@')}
+    }
+    return{enteredEmail: '',
+      emailIsValid: false}
+  };
+
+  const passwordHandler = (prevState,action) => {
+
+    if(action.type === 'passwordchange'){
+      return {enteredPassword: action.payload,
+              passwordIsValid: action.payload.trim().length > 6}
+    }
+    if(action.type === 'passwordvalidity'){
+      return{enteredPassword: prevState.enteredPassword,
+              passwordIsValid: prevState.enteredPassword.trim().length > 6}
+    }
+    return{enteredPassword: '',
+            passwordIsValid: false}
+  };
+
+
+  const [emailCurrentState,dispatchEmail] = useReducer(emailHandler,emailInitialState);
+  const [passwordCurrentState,dispatchPassword] = useReducer(passwordHandler,passwordInitialState);
+
+  const [formIsValid, setFormIsValid] = useState(false);
+
+
+  
+  useEffect(()=>{
+    const identifier = setTimeout(()=>{
+      console.log("validity check");
+
+    setFormIsValid(
+      emailCurrentState.enteredEmail.includes('@') && passwordCurrentState.enteredPassword.trim().length > 6
+    );
+    },500);
+    return()=>{
+      console.log('CLEANUP');
+      clearTimeout(identifier);
     };
-  }
+    
+  },[emailCurrentState, passwordCurrentState]);
 
-  handleUsername(e) {
-    this.setState({ username: e.target.value });
-  }
+  
+  const emailChangeHandler = (event) => {
+    dispatchEmail({type:'emailchange',payload: event.target.value})
+  };
 
-  handlePassword(e) {
-    this.setState({ password: e.target.value });
-  }
+  const validateEmailHandler = () => {
+    dispatchEmail({type:'emailvalidity'})
+  };
 
-  handleLogin() {
-    fetch("https://zerowaste-24024-default-rtdb.firebaseio.com/houseownerlogin.json", {
+  const passwordChangeHandler = (event) => {
+    dispatchPassword({type:'passwordchange',payload: event.target.value})
+  };
 
-      headers: { "Content-Type": "application/json", 'Accept':  'application/json','Cache': 'no-cache' },
-      credentials: 'include',
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password
-      }),
-      method: "POST"
+  const validatePasswordHandler = () => {
+    dispatchPassword({type:'passwordvalidity'})
+  };
+
+  const submitHandler = async (event) => {
+    debugger
+
+    event.preventDefault();
+    let email=emailCurrentState.enteredEmail;
+    let password=passwordCurrentState.enteredPassword;
+    // props.onLogin(emailCurrentState.enteredEmail, passwordCurrentState.enteredPassword)
+    fetch('http://127.0.0.1:8000/zerowaste/houseowner/signup/', {
+      method: 'POST',
+      body:JSON.stringify({email,
+        password,
+        returnSecureToken: true,
+      })
+      // headers: {
+      //   'Content-Type': 'application/json'
+      // }
     })
-      .then(response => {response.json(); console.log(response)})
-      .then(data => console.log(data));
-      // .then(response => {
-      //   console.log("json response: ", response);
-      //   return response.text();
-      // })
-      // .then(resJson => {
-      //   console.log("json response: ", resJson);
-      // })
-      // .catch(err => {
-      //   console.log(err);
-      // });
+    .then(response => {
+      console.log("request: ", response);
+    })
+    .then(resJson => {
+      console.log("response: ", resJson);
 
+    })
+    .catch(err => {
+      
+      console.log(err);
+    }); 
+    console.log(JSON.stringify({email,password}));
+    navigate('/houseownerservices');
+    setIsNavDisabled(false);
+    
+   
+  };
 
-
-  }
-
-  render() {
-    return (
-      <div className="loginform">
-       <div className="loginhead"> <h2>Houseowner Login</h2> </div>
-        <h4>Username :
-           <input className="inputt" type="text" name="username" onChange={this.handleUsername} /></h4>
-        <br />
-        <h4>Password :
-          <input className="inputt" type="text" name="password" onChange={this.handlePassword} /></h4>
-        <br /> <br />
-        <button onClick={this.handleLogin}>
-          {/* <a href="/welcome"> */}
-          <Nav.Link
+  return (
+    <div className={classes.houseowner}>
+      <h1>Login</h1>
+      <form onSubmit={submitHandler}>
+        <div
+          className={`${classes.control} ${
+            emailCurrentState.emailIsValid === false ? classes.invalid : ''
+          }`}
+        >
+          <label htmlFor="email">E-Mail</label>
+          <input
+            type="email"
+            id="email"
+            value={emailCurrentState.enteredEmail}
+            onChange={emailChangeHandler}
+            onBlur={validateEmailHandler}
+          />
+        </div>
+        <div
+          className={`${classes.control} ${
+            passwordCurrentState.passwordIsValid === false ? classes.invalid : ''
+          }`}
+        >
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            value={passwordCurrentState.enteredPassword}
+            onChange={passwordChangeHandler}
+            onBlur={validatePasswordHandler}
+          />
+        </div>
+        <div className={classes.actions}>
+        {/* <Nav
               as={Link}
-              to="/welcome"
-                // href="https://blogs.soumya-jit.tech/"
-                // target="_blank"
-                // rel="noreferrer"
-              >
+              to={routePath}
+              disabled={isNavDisabled}
+              > */}
+          <Button type="submit" 
+            className={classes.btn} 
+            disabled={!formIsValid}
+            onClick={(e) => submitHandler(e)}
+          >
+           {/* <a href='/welcome'> */}
+           
             Login
-            </Nav.Link>
-            {/* </a> */}
-            </button>
-
+            
+             {/* </a> */}
+          </Button>
+          {/* </Nav> */}
+        </div>
         <div className='row2'>
               <p>Don't have an Account? <a href="/register">Register</a></p>
               </div>
-      </div>
-    );
-  }
-}
+      </form>
+    </div>
+  );
+};
 
 export default Login;

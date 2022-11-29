@@ -9,7 +9,14 @@ function Bookinghistory() {
 
      const response=await fetch(
 
-       'https://bookinghistory-94165-default-rtdb.firebaseio.com/history.json'
+       'http://127.0.0.1:8000/zerowaste/houseowner/bookinghistory/',
+       {
+        body: JSON.stringify({
+          jwt:sessionStorage.getItem("jwt"),
+    
+         
+        })
+       }
 
      );
 
@@ -30,13 +37,9 @@ function Bookinghistory() {
     for (const key in responseData){
 
       loadedUserDetails.push({
-
         bookeddate: responseData[key].Booking,
-
         colleceteddate: responseData[key].Collecting,
-
         name: responseData[key].Name,
-
         type: responseData[key].Waste,
 
       });
