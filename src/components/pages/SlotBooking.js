@@ -105,17 +105,17 @@ const handleRegister = () => {
           })}
         </select>
       </div></label>
-      <div className='slotdate'>
-         <label htmlFor="password"><b>Select Date:</b></label>
+      <div className="itemm">
+         <label className="dropdownn"><b>Select Date:</b></label>
          <input type="date" id="slotdate" name="collection-date" min="2022-12-01" onChange={(e) =>handleDate(e)}/>
-         </div>
-      {/* {wasteidValidationError && <div className="errormessage">{wasteidValidationError}</div>} */}
-     
-       <Link to="/slotbooked"> 
-          <button type="submit" className='button' onClick={handleRegister}>
-            Submit
-          </button>
-        </Link> 
+         <div className='buttons'> 
+          <Link to="/slotbooked"> 
+              <button type="submit" className='butn' id="two" onClick={handleRegister}>
+                Submit
+              </button>
+            </Link>      
+          </div>
+          </div>
     </div>
   );
 }

@@ -60,7 +60,7 @@ const MunicipalityLogin = () => {
             ref={passwordInputRef}
           />
         </div>
-        <button type='submit' >Login</button>
+        <button type='submit' className={classes.button} >Login</button>
         </form>    
      
    </div>

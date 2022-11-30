@@ -1,6 +1,6 @@
 .bookingstatusreport{
     margin-top: 20px;
-    margin-bottom: 150px;
+    margin-bottom: 60px;
 }
 .statushead{
     margin-top: 100px;
@@ -12,4 +12,6 @@
 }
 .table{
 margin-top: 40px;
+margin-bottom: 100px;
 }
+.bookingstatus{}

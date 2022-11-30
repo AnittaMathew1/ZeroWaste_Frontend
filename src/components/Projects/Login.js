@@ -190,13 +190,14 @@
         <form onSubmit={submitHandler}>
         {!isLogin && <div className={classes.control}>
               <label htmlFor='name'>First name</label>
-            <input type='name' id='fname' required ref={firstnameInputRef} />
+            <input type='name' id='fname' required  ref={firstnameInputRef} />
             <label htmlFor='name'>Last name</label>
             <input type='name' id='lname' required ref={lastnameInputRef} />
             <label htmlFor='name'>Address</label>
             <input type='name' id='address' required ref={addressInputRef} />
             <label htmlFor='name'>Pincode</label>
-             <input type='name' id='pincode' required ref={pincodeInputRef} />
+             <input type='tel' id='pincode' pattern="[0-9]{6}" minlength="6"
+      maxlength="6" required ref={pincodeInputRef} />
              <label className="itemm">Ward :
               <div className="dropdown">
                 <select required ref={wardInputRef} placeholder="Select Ward Number"
@@ -207,11 +208,12 @@
         </select>
         </div></label> 
             <label htmlFor='name'>Phone Number</label>
-            <input type='text' id='phoneno' required ref={phonenoInputRef} />
+            <input type='tel' pattern="[0-9]{10}" placeholder="9999999999" id='phoneno' minlength="10"
+      maxlength="10" required ref={phonenoInputRef} />
           </div>}
           <div className={classes.control}>
             <label htmlFor='email'>Email</label>
-            <input type='email' id='email' required ref={emailInputRef} />
+            <input type='email' id='email' minlength="11" required ref={emailInputRef} />
           </div>
           <div className={classes.control}>
             <label htmlFor='password'>Password</label>

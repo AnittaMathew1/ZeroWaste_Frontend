@@ -1,87 +1,87 @@
 .slotbooked-header{
-    /* background-image: url("C:\Users\ahammed.pb\Downloads\pexels-share-textures-11285345.jpg"); */
-    width: 100%;
-    height: 100%;
-    
-    background-size: 100% 100%;
-    border: 2px solid #292626;
-    /* width:auto; */
-    /* height:auto; */
- }
- 
- .slotbooked{
-   /* background-image: url("C:\Users\ahammed.pb\Downloads\pexels-edmond-dantès-4339955.jpg"); */
-   margin: auto;
-   width: 40%;
-   /* border: 3px solid rgb(70, 27, 27); */
-   padding: 20px;
-   border-radius: 30px;
+  /* background-image: url("C:\Users\ahammed.pb\Downloads\pexels-share-textures-11285345.jpg"); */
+  width: 100%;
+  height: 100%;
+  
+  background-size: 100% 100%;
+  border: 2px solid #292626;
+  /* width:auto; */
+  /* height:auto; */
+}
+
+.slotbooked{
+ /* background-image: url("C:\Users\ahammed.pb\Downloads\pexels-edmond-dantès-4339955.jpg"); */
+ margin: auto;
+ width: 40%;
+ /* border: 3px solid rgb(70, 27, 27); */
+ padding: 20px;
+ border-radius: 30px;
+ margin-top: 100px;
+ display: flex;
+ flex-direction: column;
+ /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26); */
+ box-sizing: border-box;
+ margin-bottom: 150px;
+ align-items: center;
+
+}
+
+.slotbooked h1{
+   /* padding-top: 500px; */
    margin-top: 100px;
+   margin-bottom: 50px;
+   color:rgb(0, 0, 0);
+}
+.details h3{
+text-align: center;
+}
+.details p{
+   margin-left: 500px;
+   text-align: left;
+   /* margin-bottom: 250px; */
+}
+
+.print
+{
+   margin-bottom: 250px;
+}
+.buttons{
    display: flex;
-   flex-direction: column;
-   /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26); */
-   box-sizing: border-box;
-   margin-bottom: 150px;
-   align-items: center;
- 
- }
- 
- .slotbooked h1{
-     /* padding-top: 500px; */
-     margin-top: 100px;
-     margin-bottom: 50px;
-     color:rgb(0, 0, 0);
- }
- .details h3{
- text-align: center;
- }
- .details p{
-     margin-left: 500px;
-     text-align: left;
-     /* margin-bottom: 250px; */
- }
- 
- .print
- {
-     margin-bottom: 250px;
- }
- .buttons{
-     display: flex;
-     /* margin:auto; */
-    
-    
- }
- 
- .butn {
-     font: inherit;
-     border: 1px solid #4f005f;
-     background: #4f005f;
-     color: white;
-     padding: 0.75rem 3.5rem;
-     cursor: pointer;
-     font-size: 1.15rem;
-     border-radius: 30px;
-     background: rgb(27, 25, 25);
-     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-     margin:auto;
-     width: auto;
-     height: auto;
-    
-    
-   }
+   /* margin:auto; */
   
-   .butn:hover,
-   .butn:active {
-     background: #741188;
-     border-color: #741188;
-   }
   
-   .butn:focus {
-     outline: none;
-   }
-   #one{
-     margin-right:6%;
-   }
-   #two{
-     margin-right:-6%;
-   }
+}
+
+.butn {
+   font: inherit;
+   border: 1px solid #4f005f;
+   background: #4f005f;
+   color: white;
+   padding: 0.75rem 3.5rem;
+   cursor: pointer;
+   font-size: 1.15rem;
+   border-radius: 30px;
+   background: rgb(27, 25, 25);
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+   margin:auto;
+   width: auto;
+   height: auto;
+  
+  
+ }
+
+ .butn:hover,
+ .butn:active {
+   background: #741188;
+   border-color: #741188;
+ }
+
+ .butn:focus {
+   outline: none;
+ }
+ #one{
+   margin-right:6%;
+ }
+ #two{
+   margin-right:-6%;
+ }
