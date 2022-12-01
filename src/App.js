@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home/Home";
 import About from "./components/About/About";
 import Login from "./components/Projects/Login";
-import AuthContext from './components/Projects/auth-context';
+import AuthContext from "./store/auth-context";
 import { useContext } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 import Msignin from "./components/Municipalitypages/Municipalitylogin";
@@ -33,11 +33,14 @@ import BookingHistory from "./components/Projects/BookingHistory";
 import Slotbooked from "./components/pages/Slotbooked";
 import Municipalitylogin from "./components/Municipalitypages/Municipalitylogin"
 import Bookingstatus from "./components/Projects/Bookingstatus";
+import Collectorlogin from "./components/CollectorPages/Collectorlogin";
+import Collectorservices from "./components/CollectorPages/collectorservices"
 import { CgLayoutGrid } from "react-icons/cg";
 // import Payments from "./components/pages/Payments";
 
 function App() {
   const authCtx = useContext(AuthContext);
+  console.log(authCtx.isLoggedIn);
   const [load, upadateLoad] = useState(true);
 
   useEffect(() => {
@@ -55,37 +58,25 @@ function App() {
       <div className="App" id={load ? "no-scroll" : "scroll"}>
       <Navbar /> 
         <ScrollToTop />
-        <Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/municipalitylogin" element={<Municipalitylogin />} />
+        <Route path="/Msignin" element={<Msignin />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/collectorlogin" element={<Collectorlogin />} />
+        <Route path="/collectorservices" element={<Collectorservices />} />
         <Route path="/slotbook" element={<Slotbooking />} />
-          <Route path="/slotbooked" element={<Slotbooked />} />
-          <Route path="/municipalitylogin" element={<Municipalitylogin />} />
-          <Route path="/bookingstatusreport" element={<Bookingstatusreport />} />
-          <Route path="/bookinghistory" element={<BookingHistory />} />
-          <Route path="/bookingstatus" element={<Bookingstatus />} />
-          <Route path="/payments" element={<Payments />} />
-        
-          <Route path="/login" element={<Login />} />
-          <Route path="/Msignin" element={<Msignin />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          {/* <Route path="/register" element={<Register />} /> */}
-          <Route path="/houseownerservices" element={<Houseownerservices />} />
-          <Route path="/municipalityservices" element={<Municipalityservices/>} />
-          <Route path="/bookinghistory" element={<BookingHistory />} />
-          <Route path="/bookingstatus" element={<Bookingstatus />} />
-          {/* <Route path="/payment" element={<Payment />} /> */}
-          
-          {/* <Route path="*" element={<Navigate to="/"/>} />
-          {authCtx.isLoggedIn && (
-          <Route path="/houseownerservices" element={<Navigate to="/houseownerservices"/>}    exact>
-          </Route> */}
-
-        {/* {!authCtx.isLoggedIn && (
-        <Route path='/' exact>
-          <Houseownerservices />
-        </Route>
-        )} */}
-          
+        <Route path="/slotbooked" element={<Slotbooked />} />      
+        <Route path="/bookingstatusreport" element={<Bookingstatusreport />} />
+        <Route path="/bookinghistory" element={<BookingHistory />} />
+        <Route path="/bookingstatus" element={<Bookingstatus />} />
+        <Route path="/payments" element={<Payments />} />
+        <Route path="/houseownerservices" element={<Houseownerservices />} />
+        <Route path="/municipalityservices" element={<Municipalityservices/>} />
+        <Route path="/bookinghistory" element={<BookingHistory />} />
+        <Route path="/bookingstatus" element={<Bookingstatus />} />  
         </Routes>
         <Footer />
       </div>

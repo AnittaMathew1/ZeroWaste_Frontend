@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react';
 // import Table from 'react-bootstrap/Table';
 import '../Municipalitypages/bookingstatusreport.css';
 
@@ -6,33 +6,52 @@ import '../Municipalitypages/bookingstatusreport.css';
 
 function Status() {
   const [data, setData] = useState([]);
-  
+ 
 
  
     useEffect(()=>{
-      const fetchUserDetails = async () => {
-       const response=await fetch(
-         'https://bookingstatus-f2b00-default-rtdb.firebaseio.com/bstatus.json'
-       );
-       if (!response.ok){
-        throw  new Error('something went wrong!');
-       }   
-      const responseData=await response.json();
-      
-      const loadedUserDetails=[];
+      let auth =  sessionStorage.getItem('jwt');
+      // const fetchUserDetails = async () => {
+      //  const response=await
+       fetch('http://127.0.0.1:8000/zerowaste/houseowner/bookingstatus/',{
+        method: 'GET',
+        headers:{
+          Accept: 'application/json',
+                   'Content-Type': 'application/json',
+                   'Authorization': auth,
+           },
+          })
+          .then(response => {
+            console.log("request: ", response);
+            return response.json();
+           
+          })
+          .then((res)=>{
+            console.log("response: ", res);
+            const responseData=res;
+            const loadedUserDetails=[];
 
       for (const key in responseData){
         loadedUserDetails.push({
           a: responseData[key].bookeddate,
           b: responseData[key].collecteddate,
-          c: responseData[key].status,
-          d: responseData[key].wastetype,
+          c: responseData[key].wastetype,
+          d: responseData[key].status,
+         
         });
       }
       setData(loadedUserDetails);
-    };
-    fetchUserDetails().catch((error) => {
-    })  
+          })
+
+      //  if (!response.ok){
+      //   throw  new Error('something went wrong!');
+      //  }  
+     
+     
+     
+    // };
+    // fetchUserDetails().catch((error) => {
+    // })  
     },[])
 
 
@@ -52,20 +71,20 @@ function Status() {
               <th>Collection Date</th>
               <th>Waste Type</th>
               <th>Status</th>
-              
+             
             </tr>
           </thead>
           <tbody>
             {data
-              .map((item, index) =>( 
+              .map((item, index) =>(
                 <tr key={index}>
                   <td>{item.a}</td>
                   <td>{item.b}</td>
-                  <td>{item.d}</td>
                   <td>{item.c}</td>
+                  <td>{item.d}</td>
                   </tr>
                   ))}
-                  
+                 
           </tbody>
           </table>
           {/* </Table> */}

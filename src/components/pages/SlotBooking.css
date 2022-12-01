@@ -18,6 +18,8 @@
 }
 .register{
     margin-bottom: 80px;
+    background-image: url('../../Assets/corporationlogin.png');
+    background-size: cover;
 }
 
 .buttons{
@@ -44,7 +46,7 @@
     /* margin:auto; */
     width: auto;
     height: auto;
-    margin-left: -300px;
+    /* margin-left: -100px; */
    
    
   }
@@ -63,4 +65,10 @@
   }
  .dropdownn option{
 width: 600px;
+  }
+  @media (min-width: 768px) {
+    .control {
+      align-items: center;
+      flex-direction: row;
+    }
   }

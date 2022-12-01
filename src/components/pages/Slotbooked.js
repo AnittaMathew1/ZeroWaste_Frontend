@@ -1,6 +1,7 @@
-import './Slotbooked.css';
+
 // import { Nav } from "react-bootstrap";
 import { Link } from 'react-router-dom';
+import './Slotbookd.css'
 
 const Slotbooked = () => {
     return(
@@ -9,13 +10,13 @@ const Slotbooked = () => {
           <h1>Slot Booked Successfully</h1>
           <div className='buttons'> 
           <Link to="/houseownerservices"> 
-              <button type="submit" className='butn' id="two">
+              <button type="submit" className='slotbtn' id="one">
                 Home
               </button>
             </Link>      
          
             <Link to="/slotbook"> 
-              <button type="submit" className='butn'  id="two">
+              <button type="submit" className='slotbtn' id="two">
                 Book Again
               </button>
             </Link> 

@@ -7,7 +7,7 @@
 import { useState, useRef, useContext,useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link,useNavigate } from "react-router-dom";
-import AuthContext from '../../store/auth-context';
+import AuthContext from './auth-context';
 import classes from './AuthForm.module.css';
 
 const Login = (props) => {
@@ -148,19 +148,18 @@ const Login = (props) => {
           .then((res) => {
               console.log("responseeee: ", res.detail);
               console.log(res.jwt);
-              authCtx.login(res.jwt);
               sessionStorage.setItem("jwt",res.jwt);
-              if(res.status === 1){
+            //   if(res.status === 1){
                 setRedirect(true);
-                navigate('/houseownerservices')    
-              }
-              else
-              {
-                console("ammuz");
-                setEmailValidationErrorr('This email is already used');
+                navigate('/collectorservices')    
+            //   }
+            //   else
+            //   {
+            //     console("ammuz");
+            //     setEmailValidationErrorr('This email is already used');
                 
-                setPhoneNoValidationErrorr('This phonenumber is already used');
-              }
+            //     setPhoneNoValidationErrorr('This phonenumber is already used');
+            //   }
             setIsLoading(false);
             if (res.ok) {
               return res.json();
@@ -193,6 +192,7 @@ const Login = (props) => {
             }
           })
           .then((data) => {
+            authCtx.login(data.jwt);
             console.log("hiiii",JSON.stringify(data.jwt))
             // authCtx.setUser({userName:data.username})
             // localStorage.setItem('jwt',JSON.stringify(data.jwt))
@@ -255,7 +255,7 @@ const Login = (props) => {
             className={classes.toggle}
             onClick={switchAuthModeHandler}
           >
-            {isLogin ? 'Create new account' : 'Login with existing account'}
+            {isLogin ? 'Create new account' : 'Collector Signin'}
           </button>
           {loginValidationErrorr && <div className="errormessage">{loginValidationErrorr}</div>}
         </div>

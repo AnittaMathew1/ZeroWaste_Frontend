@@ -1,6 +1,4 @@
 import React, { useEffect, useState , useReducer} from 'react';
-import classes from '../Projects/Login.module.css';
-import Button from '../Projects/Button';
 import { Nav } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import './SlotBooking.css';

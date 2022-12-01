@@ -1,24 +1,20 @@
-import React, { useState } from "react";
+import React, { useState , useContext } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import logo from "../Assets/logo.jpg";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
-import { CgGitFork } from "react-icons/cg";
-import { ImBlog } from "react-icons/im";
-import {
-  AiFillStar,
-  AiOutlineHome,
-  AiOutlineFundProjectionScreen,
-  AiOutlineUser,
-} from "react-icons/ai";
-
+import {AiFillStar,AiOutlineHome,AiOutlineFundProjectionScreen,AiOutlineUser,} from "react-icons/ai";
 import { CgFileDocument } from "react-icons/cg";
+import AuthContext from "../store/auth-context";
+import './Navbar.css'
 
 function NavBar() {
   const [expand, updateExpanded] = useState(false);
   const [navColour, updateNavbar] = useState(false);
+  const authCtx = useContext(AuthContext);
+
 
   function scrollHandler() {
     if (window.scrollY >= 20) {
@@ -54,12 +50,15 @@ function NavBar() {
         <div className="navitems">
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto" defaultActiveKey="#home">
+          {!authCtx.isLoggedIn && (
             <Nav.Item>
               <Nav.Link as={Link} to="/" onClick={() => updateExpanded(false)}>
                 <AiOutlineHome style={{ marginBottom: "2px" }} /> Home
               </Nav.Link>
             </Nav.Item>
-
+          )}
+           
+            {!authCtx.isLoggedIn && (
             <Nav.Item>
               <Nav.Link
                 as={Link}
@@ -69,7 +68,10 @@ function NavBar() {
                 <AiOutlineUser style={{ marginBottom: "2px" }} /> About
               </Nav.Link>
             </Nav.Item>
+            )}
+       
 
+            {!authCtx.isLoggedIn && (
             <Nav.Item>
               <Nav.Link
                 as={Link}
@@ -82,7 +84,9 @@ function NavBar() {
                 houseowner
               </Nav.Link>
             </Nav.Item>
+            )}
 
+          {!authCtx.isLoggedIn && (
             <Nav.Item>
               <Nav.Link
                 as={Link}
@@ -92,38 +96,27 @@ function NavBar() {
                 <CgFileDocument style={{ marginBottom: "2px" }} /> Municipality
               </Nav.Link>
             </Nav.Item>
-
+            )}
+         
+         {!authCtx.isLoggedIn && (
             <Nav.Item>
               <Nav.Link
                 as={Link}
-                to="/Login"
+                to="/collectorlogin"
                 onClick={() => updateExpanded(false)}
               >
-                <CgFileDocument style={{ marginBottom: "2px" }} /> Employee
+                <CgFileDocument style={{ marginBottom: "2px" }} /> Collector
               </Nav.Link>
             </Nav.Item>
-            {/* <Nav.Item>
-              <Nav.Link
-                href="https://blogs.soumya-jit.tech/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <ImBlog style={{ marginBottom: "2px" }} /> Employee
-              </Nav.Link>
-            </Nav.Item> */}
-            
-            
-
-            {/* <Nav.Item className="fork-btn">
-              <Button
-                href="https://github.com/soumyajit4419/Portfolio"
-                target="_blank"
-                className="fork-btn-inner"
-              > */}
-                {/* <CgGitFork style={{ fontSize: "1.2em" }} />{" "}
-                <AiFillStar style={{ fontSize: "1.1em" }} />
-              </Button>
-            </Nav.Item> */}
+         )}
+         
+            {authCtx.isLoggedIn &&(
+           
+          <Link to={'/'}>
+            <button onClick={authCtx.logout} className='logout'> Logout </button>
+            </Link>
+            )}
+         
           </Nav>
         </Navbar.Collapse>
         </div>
