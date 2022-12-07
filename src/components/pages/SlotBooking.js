@@ -10,7 +10,7 @@ const SlotBooking = (props) => {
 const [collectionDate, setCollectionDate] = useState('');
 const [id, setWasteid] = useState('');
 const [wasteData, setWasteData] = useState();
-const [message, setMessage] = useState();
+const [quantity, setQuantity] = useState();
 
 const current = new Date();
   const booking_date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
@@ -36,8 +36,9 @@ const getWasteData = () => {
     });
 }
 
-const handleMessage = (e) => {
-  setMessage(e.target.value);
+const handleQuantity = (e) => {
+  setQuantity(e.target.value);
+  console.log(e.target.value)
 }
 const handleWasteid =(e)=> {
   e.preventDefault();
@@ -53,17 +54,22 @@ const handleWasteid =(e)=> {
 }
 
 
-const handleRegister = () => {
+  let auth =  sessionStorage.getItem('jwt');
+const handleSubmit = () => {
 
     fetch("http://127.0.0.1:8000/zerowaste/houseowner/slotbooking/", {
-    headers: { "Content-Type": "application/json" },
+      headers:{
+        Accept: 'application/json',
+                 'Content-Type': 'application/json',
+                 'Authorization': auth,
+         },
     method: "POST",
     body: JSON.stringify({
-      // message: message,
+      
       waste_id:id,
-      collection_date:collectionDate,
       booking_date:booking_date,
-      jwt:sessionStorage.getItem("jwt"),
+      quantity: quantity,
+      // jwt:sessionStorage.getItem("jwt"),
 
      
     })
@@ -91,9 +97,6 @@ const handleRegister = () => {
     <div className="register">
       <h2 className="registerhead">Book Your Slot</h2>
      
-      <label className="itemm"><b>Add Message : </b>
-      <input className="inputarea" type="text" name="message" onChange={() =>handleMessage()}
-        /> </label>
       <label className="itemm"><b>Waste Type :</b>
        {/* <input className="inputarea" type="text" name="wardno" onChange={()=>handleWardno()} />  */}
        <div className="dropdown">
@@ -103,12 +106,13 @@ const handleRegister = () => {
           })}
         </select>
       </div></label>
+      <label className="itemm"><b>Add Quantity(in Kg) : </b>
+      <input className="inputarea" type="number" name="quantity" onChange={(e) =>handleQuantity(e)}
+        /> </label><h6>(1 Bucket = 1 Kg)</h6>
       <div className="itemm">
-         <label className="dropdownn"><b>Select Date:</b></label>
-         <input type="date" id="slotdate" name="collection-date" min="2022-12-01" onChange={(e) =>handleDate(e)}/>
          <div className='buttons'> 
           <Link to="/slotbooked"> 
-              <button type="submit" className='butn' id="two" onClick={handleRegister}>
+              <button type="submit" className='butn' id="two" onClick={handleSubmit}>
                 Submit
               </button>
             </Link>      

@@ -1,5 +1,5 @@
 .slotdate{
-    margin-bottom: 40px;
+    margin-bottom: 10px;
     text-decoration: solid;
     color: rgb(60, 59, 59);
     text-align: left;
@@ -11,21 +11,26 @@
     text-decoration: solid;
     font-size: 150%;
 }
-.dropdownn{
-    width: 100px;
-    height: 35px;
-    
-}
+
 .register{
-    margin-bottom: 80px;
+    /* margin-bottom: 10px; */
     background-image: url('../../Assets/corporationlogin.png');
     background-size: cover;
 }
 
-.buttons{
+.buttonss{
     /* display: flex; */
     /* margin:auto; */
-    margin-top: 40px;
+    /* margin-top: 10px; */
+    align-items: center;
+    margin-left: 200px;
+   
+   
+}
+.button{
+    /* display: flex; */
+    /* margin:auto; */
+    /* margin-top: 5px; */
     align-items: center;
     margin-left: 200px;
    
@@ -33,6 +38,27 @@
 }
 
 .butn {
+    margin-bottom: 30px;
+    font: inherit;
+    border: 1px solid #4f005f;
+    background: #4f005f;
+    color: white;
+    padding: 0.75rem 3.5rem;
+    cursor: pointer;
+    font-size: 1.15rem;
+    border-radius: 30px;
+    background: rgb(27, 25, 25);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    /* margin:auto; */
+    width: auto;
+    height: auto;
+    /* margin-left: -100px; */
+   
+   
+  }
+  .butnn {
+    margin-left: 5px;
+    /* margin-top: -50px; */
     font: inherit;
     border: 1px solid #4f005f;
     background: #4f005f;

@@ -1,7 +1,7 @@
 import './bookingstatusreport.css';
-import classes from '../Projects/Login.module.css';
+import classes from '../HouseOwner/Login.module.css';
 import React, { useEffect, useState } from 'react';
-const Bookingstatusreport = () => {
+const WasteCollectionStatus = () => {
     const [data, setData] = useState([]);
     const [wardData, setWardData] = useState();
     const [wardno, setWardNo] = useState('');
@@ -138,4 +138,4 @@ const Bookingstatusreport = () => {
     
     }
 
-export default Bookingstatusreport;
+export default WasteCollectionStatus;

@@ -33,10 +33,10 @@ function History() {
               const loadedUserDetails=[];
               for (const key in responseData){
                 loadedUserDetails.push({
-                  bookeddate: responseData[key].bookeddate,
-                  colleceteddate: responseData[key].collectiondate,
-                  type: responseData[key].wastetype,
-                  collectorid: responseData[key].collectorid,
+                  bookingdate: responseData[key].bookingdate,
+                  collectiondate: responseData[key].collectiondate,
+                  wastetype: responseData[key].wastetype,
+                  supervisorname: responseData[key].supervisorname,
                 });
               }
               setData(loadedUserDetails);
@@ -58,10 +58,10 @@ function History() {
         <table class="table">
           <thead>
             <tr>
-              <th>Booked Date</th>
-              <th>Collected Date</th>              
+              <th>Booking Date</th>
+              <th>Collection Date</th>              
               <th>Waste Type</th>
-              <th>Collector ID</th>
+              <th>Supervisor Name</th>
              
             </tr>
           </thead>
@@ -69,10 +69,10 @@ function History() {
             {data
               .map((item, index) =>(
                 <tr key={index}>
-                  <td>{item.bookeddate}</td>
-                  <td>{item.colleceteddate}</td>                
-                  <td>{item.type}</td>
-                  <td>{item.collectorid}</td>
+                  <td>{item.bookingdate}</td>
+                  <td>{item.collectiondate}</td>                
+                  <td>{item.wastetype}</td>
+                  <td>{item.supervisorname}</td>
                   </tr>
                   ))}
                  

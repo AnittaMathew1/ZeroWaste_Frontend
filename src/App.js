@@ -4,18 +4,23 @@ import Preloader from "../src/components/Pre";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home/Home";
 import About from "./components/About/About";
-import Login from "./components/Projects/Login";
+import Login from "./components/HouseOwner/Login";
 import AuthContext from "./store/auth-context";
+import Supervisorservices from "./components/Municipalitypages/SuperviserServices";
 import { useContext } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 import Msignin from "./components/Municipalitypages/Municipalitylogin";
-// import Bookinghistory from "./components/pages/BookingHistory";
-// import Bookingstatus from "./components/pages/Bookingstatus";
 import Slotbooking from "./components/pages/SlotBooking";
-import Payments from "./components/Projects/Payments";
-import Houseownerservices from "./components/Projects/Houseownerservices";
+import Houseownerservices from "./components/HouseOwner/Houseownerservices";
 import Municipalityservices from "./components/Municipalitypages/Municipalityservices";
-import Bookingstatusreport from "./components/Municipalitypages/Bookingstatusreport";
+import Bookingstatusreport from "./components/Municipalitypages/AllocateCollectorLanding";
+import SuperAdminServices from "./components/Municipalitypages/SuperAdminServices";
+import ContractEmployeeExcel from "./components/Municipalitypages/ContractEmployeeExcel";
+import UpdateWasteDetails from "./components/Municipalitypages/UpdateWasteDetails";
+import ContractEmployee from "./components/Municipalitypages/ContractEmployee";
+
+
+// import otpValidation from "./components/Projects/otpValidation"
 // import Register from "./components/Projects/Register";
 import Footer from "./components/Footer";
 import {
@@ -28,15 +33,20 @@ import ScrollToTop from "./components/ScrollToTop";
 import "./style.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Register from "./components/Projects/Register";
-import BookingHistory from "./components/Projects/BookingHistory";
+import Register from "./components/HouseOwner/Register";
+import BookingHistory from "./components/HouseOwner/BookingHistory";
 import Slotbooked from "./components/pages/Slotbooked";
 import Municipalitylogin from "./components/Municipalitypages/Municipalitylogin"
-import Bookingstatus from "./components/Projects/Bookingstatus";
+import Bookingstatus from "./components/HouseOwner/Bookingstatus";
 import Collectorlogin from "./components/CollectorPages/Collectorlogin";
 import Collectorservices from "./components/CollectorPages/collectorservices"
+import AllocateCollector from "./components/Municipalitypages/AllocateCollector"
+import WasteCollectionUpdate from "./components/Municipalitypages/WasteCollectionUpdate";
+import WasteCollectionStatus from "./components/Municipalitypages/WasteCollectionStatus"
+import Payment from "./components/HouseOwner/Payment";
+import Bill from "./components/HouseOwner/Bill"
 import { CgLayoutGrid } from "react-icons/cg";
-// import Payments from "./components/pages/Payments";
+// import Payments from "./components/pages/Payments"; 
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -72,11 +82,23 @@ function App() {
         <Route path="/bookingstatusreport" element={<Bookingstatusreport />} />
         <Route path="/bookinghistory" element={<BookingHistory />} />
         <Route path="/bookingstatus" element={<Bookingstatus />} />
-        <Route path="/payments" element={<Payments />} />
         <Route path="/houseownerservices" element={<Houseownerservices />} />
         <Route path="/municipalityservices" element={<Municipalityservices/>} />
         <Route path="/bookinghistory" element={<BookingHistory />} />
-        <Route path="/bookingstatus" element={<Bookingstatus />} />  
+        {/* <Route path="/bookingstatus" element={<Bookingstatus />} />  */}
+        <Route path="/allocatecollector" element={<AllocateCollector />} /> 
+        <Route path="/superadminservices" element={<SuperAdminServices />} /> 
+        <Route path="/supervisorservices" element={<Supervisorservices />} />
+        <Route path="/wastecollectionupdate" element={<WasteCollectionUpdate />} />
+        <Route path="/wastecollectionstatus" element={<WasteCollectionStatus />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/contractemployee" element={<ContractEmployee />} />
+        <Route path="/contractemployeeExcel" element={<ContractEmployeeExcel />} />
+        <Route path="/updatewastedetails" element={<UpdateWasteDetails />} />
+
+
+        <Route path="/bill" element={<Bill />} />
+        {/* <Route path="/otpvalidation" element={<otpValidation />} />     */}
         </Routes>
         <Footer />
       </div>

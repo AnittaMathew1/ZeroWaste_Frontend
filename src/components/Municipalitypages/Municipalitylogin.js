@@ -9,15 +9,15 @@ const MunicipalityLogin = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const enteredName = nameInputRef.current.value;
+    const enteredEmail = nameInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
-    fetch("http://127.0.0.1:8000/zerowaste/corporation/login", {
+    fetch("http://127.0.0.1:8000/zerowaste/corporation/login/", {
 
       headers: { "Content-Type": "application/json" },
       method: "POST",
       body: JSON.stringify({
-        username :enteredName,
+        email :enteredEmail,
         password:enteredPassword,
  
       })
@@ -30,11 +30,18 @@ const MunicipalityLogin = () => {
         return response.json();
       })
       .then(resJson => {
-        console.log("response: ", resJson);
-        if(resJson.status === 1){
-          // setRedirect(true);
-          navigate('/municipalityservices');    
- 
+        console.log("responsesss: ", resJson);
+        console.log("mynameisammu : ",resJson.status)
+        sessionStorage.setItem("jwt",resJson.jwt);
+
+        if((resJson.status === 1)&&(resJson.role ==2)){
+          navigate('/superadminservices'); 
+        }
+        else if((resJson.status === 1)&&(resJson.role ==3)){
+          navigate('/municipalityservices'); 
+        }
+        else if((resJson.status === 1)&&(resJson.role ==4)){
+          navigate('/supervisorservices'); 
         }
      })
   };
@@ -43,10 +50,10 @@ const MunicipalityLogin = () => {
     <h1>Corporation Login</h1>
     <form onSubmit={submitHandler}>
       <div className={classes.control}>
-          <label htmlFor='password'>UserName</label>
+          <label htmlFor='email'>Email</label>
           <input
             type='text'
-            id='username'
+            id='email'
             required
             ref={nameInputRef}
           />

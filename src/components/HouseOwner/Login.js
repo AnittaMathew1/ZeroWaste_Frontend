@@ -209,15 +209,15 @@ const Login = (props) => {
       <form onSubmit={submitHandler}>
       {!isLogin && <div className={classes.control}>
             <label htmlFor='name'>First name</label>
-          <input type='name' id='fname' required  ref={firstnameInputRef} />
+          <input type='name' id='fname' required placeholder="Enter your first name"  ref={firstnameInputRef} />
           <label htmlFor='name'>Last name</label>
-          <input type='name' id='lname' required ref={lastnameInputRef} />
+          <input type='name' id='lname' required placeholder="Enter your last name" ref={lastnameInputRef} />
           <label htmlFor='name'>Address</label>
-          <input type='name' id='address' required ref={addressInputRef} />
+          <input type='name' id='address' required placeholder="Enter your address" ref={addressInputRef} />
           <label htmlFor='name'>Pincode</label>
-           <input type='tel' id='pincode' pattern="[0-9]{6}" minlength="6"
+           <input type='tel' id='pincode' placeholder="666666" pattern="[0-9]{6}" minlength="6"
     maxlength="6" required ref={pincodeInputRef} />
-           <label className="itemm">Ward :
+           <label htmlFor='name'>Ward :
             <div className="dropdown">
               <select required ref={wardInputRef} placeholder="Select Ward Number"
              >
@@ -233,7 +233,7 @@ const Login = (props) => {
         </div>}
         <div className={classes.control}>
           <label htmlFor='email'>Email</label>
-          <input type='email' id='email' minlength="11" required ref={emailInputRef} />
+          <input type='email' id='email' minlength="11" required placeholder="yourname@gmail.com" ref={emailInputRef} />
           {emailValidationErrorr && <div className="errormessage">{emailValidationErrorr}</div>}
         </div>
         <div className={classes.control}>

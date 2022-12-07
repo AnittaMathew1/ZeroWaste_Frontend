@@ -1,4 +1,5 @@
 import React from "react";
+import "./Footer.css"
 import { Container, Row, Col } from "react-bootstrap";
 import {
   AiFillGithub,
@@ -11,6 +12,7 @@ function Footer() {
   let date = new Date();
   let year = date.getFullYear();
   return (
+    <div className="footer">
     <Container fluid className="footer">
       <Row>
         <Col md="4" className="footer-copywright">
@@ -65,6 +67,7 @@ function Footer() {
         </Col>
       </Row>
     </Container>
+    </div>
   );
 }
 

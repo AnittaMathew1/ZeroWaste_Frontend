@@ -4,7 +4,7 @@ import ProjectCards from './ProjectCards.js';
 import {Nav} from "react-bootstrap";
 import { Link,useNavigate } from "react-router-dom";
 import Button from "./Button";
-import classes from '../Projects/Login.module.css';
+import classes from '../HouseOwner/Login.module.css';
 
 const Register = () => {
 var validated =false;

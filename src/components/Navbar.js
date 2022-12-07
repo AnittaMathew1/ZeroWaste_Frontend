@@ -81,7 +81,7 @@ function NavBar() {
                 <AiOutlineFundProjectionScreen
                   style={{ marginBottom: "2px" }}
                 />{" "}
-                houseowner
+                House Owner
               </Nav.Link>
             </Nav.Item>
             )}
@@ -93,12 +93,12 @@ function NavBar() {
                 to="/msignin"
                 onClick={() => updateExpanded(false)}
               >
-                <CgFileDocument style={{ marginBottom: "2px" }} /> Municipality
+                <CgFileDocument style={{ marginBottom: "2px" }} /> Corporation
               </Nav.Link>
             </Nav.Item>
             )}
          
-         {!authCtx.isLoggedIn && (
+         {/* {!authCtx.isLoggedIn && (
             <Nav.Item>
               <Nav.Link
                 as={Link}
@@ -108,7 +108,7 @@ function NavBar() {
                 <CgFileDocument style={{ marginBottom: "2px" }} /> Collector
               </Nav.Link>
             </Nav.Item>
-         )}
+         )} */}
          
             {authCtx.isLoggedIn &&(
            
