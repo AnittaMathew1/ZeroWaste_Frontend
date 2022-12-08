@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 // import Table from 'react-bootstrap/Table';
-import '../Municipalitypages/bookingstatusreport.css';
+// import '../Municipalitypages/bookingstatusreport.css';
+import DataTable from "react-data-table-component";
+import classes from './Bookingstatus.module.css'
 
 
 
 function BookingStatus() {
-  const [data, setData] = useState([]);
- 
-
  
     useEffect(()=>{
       let auth =  sessionStorage.getItem('jwt');
@@ -22,64 +21,49 @@ function BookingStatus() {
            },
           })
           .then(response => {
-            console.log("request: ", response);
-            return response.json();
-           
-          })
-          .then((res)=>{
-            console.log("response: ", res);
-            const responseData=res;
-            const loadedUserDetails=[];
-
-      for (const key in responseData){
-        loadedUserDetails.push({
-          a: responseData[key].bookingdate,
-          b: responseData[key].collectiondate,
-          c: responseData[key].wastetype,
-          d: responseData[key].supervisorname,
-          e: responseData[key].status,
+                console.log("request: ", response);
+                  return response.json();
+                       
+                  })
+                  .then((res)=>{
+                        console.log("response: ", res);
+                        setData(res);
+                  })
          
-        });
-      }
-      setData(loadedUserDetails);
-          })
  
     },[])
+    const [data, setData] = useState([]);
+    const columns = [
+      {
+        name: "Booked Date",
+        selector: (row) => row.bookingdate,
+      },
+      {
+        name: "Collected Date",
+        selector: (row) => row.collectiondate,
+      },
+      {
+        name: "Waste Type",
+        selector: (row) => row.wastetype,
+      },
+      {
+        name: "Supervisor Name",
+        selector: (row) => row.supervisorname,
+      },
+      {
+        name: "Status",
+        selector: (row) => row.status,
+      },
+    ]
 
 
 
 
   return (
-    <div>
+    <div className={classes.table}>
+    <h3>Booking Status</h3>
+    <DataTable columns={columns} data={data} pagination />
      
-        <h1 className='statushead'>Booking Status</h1>
-        <div className="bookingstatusreport">
-        <table class="table">
-          <thead>
-            <tr >
-              <th>Booked Date</th>
-              <th>Collection Date</th>
-              <th>Waste Type</th>
-              <th>Supervisor Name</th>
-              <th>Status</th>
-             
-            </tr>
-          </thead>
-          <tbody>
-            {data
-              .map((item, index) =>(
-                <tr key={index}>
-                  <td>{item.a}</td>
-                  <td>{item.b}</td>
-                  <td>{item.c}</td>
-                  <td>{item.d}</td>
-                  <td>{item.e}</td>
-                  </tr>
-                  ))}
-                 
-          </tbody>
-          </table>
-          </div>
     </div>
   );
 }
@@ -87,10 +71,10 @@ function BookingStatus() {
 export default BookingStatus;
 
 
+
 // import React, { useEffect, useState } from 'react';
 // // import Table from 'react-bootstrap/Table';
-// // import '../Municipalitypages/bookingstatusreport.css';
-// import './Bookingstatus.css';
+// import '../Municipalitypages/bookingstatusreport.css';
 
 
 
@@ -133,6 +117,7 @@ export default BookingStatus;
 //       }
 //       setData(loadedUserDetails);
 //           })
+ 
 //     },[])
 
 
@@ -143,13 +128,13 @@ export default BookingStatus;
      
 //         <h1 className='statushead'>Booking Status</h1>
 //         <div className="bookingstatusreport">
-//         <table class="table" className='table'>
+//         <table class="table">
 //           <thead>
 //             <tr >
-//               <th>Booking Date</th>
+//               <th>Booked Date</th>
 //               <th>Collection Date</th>
 //               <th>Waste Type</th>
-//               <th>Superviser Name</th>
+//               <th>Supervisor Name</th>
 //               <th>Status</th>
              
 //             </tr>
@@ -172,5 +157,4 @@ export default BookingStatus;
 //     </div>
 //   );
 // }
-
 // export default BookingStatus;

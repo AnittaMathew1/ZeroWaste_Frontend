@@ -1,22 +1,23 @@
-import './bookingstatusreport.css';
-import classes from '../HouseOwner/Login.module.css';
-
+import './allocatecollector.css';
+import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import DataTable from "react-data-table-component";
+
 const WasteCollectionStatus = () => {
     const [data, setData] = useState([]);
-    const [wardData, setWardData] = useState();
-    const [wardno, setWardNo] = useState('');
-    const [collectionDate, setCollectionDate] = useState('');
-    const handleDate = (e) => {
-    e.preventDefault();
-    setCollectionDate(e.target.value);
-    console.log(e.target.value)
-    }
+    const [collection_date, setCollection_date] = useState('');
+   
 
-    let auth =  sessionStorage.getItem('jwt');
-  const getCollectorDetails = (value)  => {
+    const handleDate = (e) => {
+      e.preventDefault();
+      setCollection_date(e.target.value);
+      getWasteCollectionStatus(e.target.value);
+      console.log(e.target.value)
+  }
+  const getWasteCollectionStatus = (value)  => {
+  let auth =  sessionStorage.getItem('jwt');
     //API call
-    fetch("http://127.0.0.1:8000/zerowaste/corporation/collectorlist/", {
+    fetch("http://127.0.0.1:8000/zerowaste/corporation/collectionstatus/", {
       headers:{
         Accept: 'application/json',
                  'Content-Type': 'application/json',
@@ -25,7 +26,7 @@ const WasteCollectionStatus = () => {
     method: "POST",
     body: JSON.stringify({
      
-      collectionDate:collectionDate,
+      collection_date: collection_date,
       // jwt:sessionStorage.getItem("jwt"),
 
      
@@ -39,133 +40,157 @@ const WasteCollectionStatus = () => {
     })
     .then(resJson => {
       console.log("response: ", resJson);
-      // setCollectorData(resJson.data)
+      setData(resJson);
+   
 
     })
     .catch(err => {
      
       console.log(err);
     });
-    //setCollectorData();
   }
-
-
   useEffect(()=>{
-    getWardData();
-  },[]);
-  const getWardData = () => {
-    fetch("http://127.0.0.1:8000/zerowaste/wards/", 
+     getWasteCollectionStatus(collection_date) 
+     },[data])
+  const columns = [
     {
-      method: "GET",
-    }).then((response) => {
-        // console.log("response Ward data: ", response.json());
-        return response.json();
-      })
-      .then(function (data) {
-        setWardData(data);
-      })
-      .catch(err => {
-        console.log(err);
-      }); 
-  }
-  const handleWardno =(e)=> {
-    e.preventDefault();
-    setWardNo(e.target.value);
-    console.log(e.target.value)
-    // console.log(wardno)
-  }
-    useEffect(()=>{
-      const fetchUserDetails = async () => {
-       const response=await fetch(
-         'http://127.0.0.1:8000/zerowaste/corporation/bookingreport'
-       );
-       if (!response.ok){
-        throw  new Error('something went wrong!');
-       } 
-      const responseData=await response.json();
-      const loadedUserDetails=[];
-      for (const key in responseData){
+      name: "Ward Name",
+      selector: (row) => row.wardname,
+    },
+    {
+      name: "Supervisor Name",
+      selector: (row) => row.supervisor,
+    },
+    {
+      name: "Status",
+      selector: (row) => row.status,
+    },
+  ]
 
-        loadedUserDetails.push({
-          wardname: responseData[key].wardname,
-          supervisor: responseData[key].supervisor,
-          status: responseData[key].status,
-
-        });
-
-      }
-
-      setData(loadedUserDetails);
-
-    };
-
-    fetchUserDetails().catch((error) => {
-
-    })  
-
-    },[])
     return (
           <div className="bookingstatus">
             <div className='statushead'>
-            <h1 >Booking Status Report</h1>
+            <h1 >Waste Collection Status</h1>
             </div>
-            <div className="itemm">
-            <label className="dropdownn"><b>Select Date:</b></label>
-            <input type="date" id="slotdate" name="collection-date" min="2022-12-01" onChange={(e) =>handleDate(e)}/>
-
-            {/* <Table striped bordered hover className='table'>  */}
            <div className="bookingstatusreport"> 
-           {/* <p><div className='slotdate'>
-              <label ><b>Select Date:</b></label>
-              <input type="date" id="slotdate"  onChange={(e) =>handleDate(e)}/>
-            </div>
-              <label className="itemm">Ward Number : */}
-              {/* <input className="inputarea" type="text" name="wardno" onChange={()=>handleWardno()} />  */}
-              {/* <div className="dropdown">
-              <select onChange={(e) => handleWardno(e)}
-              placeholder="Select Ward Number"
-               >
-          {wardData?.map(ward => {
-              return (<option key={ward.wardno} value={ward.wardno}>{ward.wardname}</option>);
-          })}
-        </select>
-      </div></label></p> */}
-      {/* <button type="submit"
-      >Submit</button> */}
+
+                <br></br>
+                <div className="itemm">
+
+         <label className="dropdownn"><b>Select Date:</b></label>
+         <input type="date" id="slotdate" name="collection-date" min="2022-12-01" onChange={(e) =>handleDate(e)}/>
       </div>
       </div>
-      <div className="tablereport">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Ward Name</th>
-                  <th>Supervisor Name</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data
-                  .map((item, index) =>(
-                    <tr key={index}>
-                      <td>{item.wardname}</td>
-                      <td>{item.supervisor}</td>
-                      <td>{item.status}</td>
-                      </tr>
-                      
-                      ))}
-    
-                     
-    
-              </tbody>
-              </table>
-    
-              {/* </Table> */}
-              </div>
-    
-        </div>
-    
+      <DataTable columns={columns} data={data} pagination />
+      </div>
       );
-    
+   
     }
 
 export default WasteCollectionStatus;
+
+
+
+// import './allocatecollector.css';
+// import classes from '../HouseOwner/Login.module.css';
+// import { useNavigate } from 'react-router-dom';
+// import React, { useEffect, useState } from 'react';
+// const WasteCollectionStatus = () => {
+//     const [data, setData] = useState([]);
+//     const [collection_date, setCollection_date] = useState('');
+//     const [collectionData, setCollectionData] = useState([]);
+
+//     const handleDate = (e) => {
+//       e.preventDefault();
+//       setCollection_date(e.target.value);
+//       getWasteCollectionStatus(e.target.value);
+//       console.log(e.target.value)
+//   }
+//   let auth =  sessionStorage.getItem('jwt');
+//   const getWasteCollectionStatus = (value)  => {
+//     //API call
+//     fetch("http://127.0.0.1:8000/zerowaste/corporation/collectionstatus/", {
+//       headers:{
+//         Accept: 'application/json',
+//                  'Content-Type': 'application/json',
+//                  'Authorization': auth,
+//          },
+//     method: "POST",
+//     body: JSON.stringify({
+     
+//       collection_date:value,
+//       // jwt:sessionStorage.getItem("jwt"),
+
+     
+//     })
+   
+//   })
+
+//     .then(response => {
+//       console.log("request: ", response);
+//       return response.json();
+//     })
+//     .then(resJson => {
+//       console.log("response: ", resJson);
+//       const collectionData=resJson;
+//       const loadedCollectionDetails=[];
+//       // setCollectionData(resJson.data)
+
+//       for (const key in collectionData){
+//         loadedCollectionDetails.push({
+//           a: collectionData[key].wardname,
+//           b: collectionData[key].supervisor,
+//           c: collectionData[key].status,
+         
+//         });
+//       }
+//       setData(loadedCollectionDetails);
+
+//     })
+//     .catch(err => {
+     
+//       console.log(err);
+//     });
+//     //setCollectorData();
+//   }
+//     return (
+//           <div className="bookingstatus">
+//             <div className='statushead'>
+//             <h1 >Waste Collection Status</h1>
+//             </div>
+//            <div className="bookingstatusreport"> 
+
+//                 <br></br>
+//                 <div className="itemm">
+
+//          <label className="dropdownn"><b>Select Date:</b></label>
+//          <input type="date" id="slotdate" name="collection-date" min="2022-12-01" onChange={(e) =>handleDate(e)}/>
+//       </div>
+//       </div>
+//       <div className="tablereport">
+//             <table class="table">
+//               <thead>
+//                 <tr>
+//                    <th>Ward Name</th>
+//                   <th> Supervisor Name</th>
+//                   <th>Status</th>
+//                 </tr>
+//               </thead>
+//               <tbody>
+//                 {data?.map((item, index) =>(
+//                     <tr key={index}>
+//                       <td>{item.a}</td>
+//                       <td>{item.b}</td>
+//                       <td>{item.c}</td>
+//                       </tr>
+                     
+//                       ))}
+//               </tbody>
+//               </table>
+//               </div>
+//         </div>
+//       );
+   
+//     }
+
+// export default WasteCollectionStatus;

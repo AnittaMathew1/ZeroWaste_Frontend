@@ -4,6 +4,7 @@ import './wastecollectionupdate.css';
 
 
 const WasteCollectionUpdate = (props) => {
+  let auth =  sessionStorage.getItem('jwt');
   var validated =false
   const wardInputRef = useRef();
   const [wardData, setWardData] = useState();
@@ -38,18 +39,19 @@ const handleWardno =(e)=> {
   console.log(e.target.value)
   // console.log(wardno)
 }
-
 const handleStatusProgress = () => {
 
     fetch("http://127.0.0.1:8000/zerowaste/corporation/collectionstatusupdate/", {
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      Accept: 'application/json',
+               'Content-Type': 'application/json',
+               'Authorization': auth,
+       },
     method: "POST",
     body: JSON.stringify({
-      status: status,
-      
-      // collection_date:collectionDate,
+      status: "In Progress",
       collection_date:collection_date,
-      jwt:sessionStorage.getItem("jwt"),
+      wardno:wardno,
 
      
     })
@@ -72,7 +74,6 @@ const handleStatusProgress = () => {
 
   //   console.log(firstnameValidationError,pincode);
 }
-let auth =  sessionStorage.getItem('jwt');
 const handleStatusCompleted = () => {
 
   fetch("http://127.0.0.1:8000/zerowaste/corporation/collectionstatusupdate/", {

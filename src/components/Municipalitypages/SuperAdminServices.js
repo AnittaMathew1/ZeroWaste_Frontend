@@ -26,7 +26,7 @@ const SuperAdminservices = (props) => {
             </NavLink>
           </li>
           <li>
-            <NavLink to ='/Payments' className={classes.usertext}>
+            <NavLink to ='/contractemployee' className={classes.usertext}>
              <img src={img5}/>
               <h4>Contract Employees</h4>
             </NavLink>

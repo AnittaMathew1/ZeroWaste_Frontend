@@ -3,15 +3,49 @@ import classes from '../HouseOwner/Login.module.css';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 const AllocateCollector = () => {
+  const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [wardData, setWardData] = useState();
     const [superviserData, setSuperviserData] = useState();
     const [wardno, setWardNo] = useState('');
-    const [id, setid] = useState('');
+    const [supervisor_id, setSuperviser] = useState('');
     const [collectionDate, setCollectionDate] = useState('');
     const [collectorData, setCollectorData] = useState([]);
+    let auth =  sessionStorage.getItem('jwt');
     const submitHandler = (event) => {
+      console.log("goback");
+      fetch("http://127.0.0.1:8000/zerowaste/corporation/collectorallocation/", {   /////tobe edited
+        headers:{
+          Accept: 'application/json',
+                   'Content-Type': 'application/json',
+                   'Authorization': auth,
+           },
+      method: "POST",
+      body: JSON.stringify({
+        wardno:wardno,
+        supervisor_id:supervisor_id,
+        collection_date:collectionDate,
+        status: "Collector Allotted",
+        // jwt:sessionStorage.getItem("jwt"),
+  
        
+      })
+     
+    })
+  
+    console.log(sessionStorage.getItem('jwt'))
+      .then(response => {
+        console.log("request: ", response);
+        return response.json();
+      })
+      .then(resJson => {
+        console.log("response: ", resJson);
+  
+      })
+      .catch(err => {
+       
+        console.log(err);
+      });
     }
     const handleDate = (e) => {
       e.preventDefault();
@@ -41,8 +75,7 @@ const AllocateCollector = () => {
   }
   const handleSupervisorData =(e)=> {
     e.preventDefault();
-    setid(e.target.value);
-    // getCollectorDetails(e.target.value);
+    setSuperviser(e.target.value);
     console.log("supervisor",e.target.value)
   }
   const getSuperviserData = () => {
@@ -66,7 +99,6 @@ const AllocateCollector = () => {
     console.log(e.target.value)
   }
   
-  let auth =  sessionStorage.getItem('jwt');
   const getCollectorDetails = (value)  => {
     //API call
     fetch("http://127.0.0.1:8000/zerowaste/corporation/collectorlist/", {
@@ -99,51 +131,7 @@ const AllocateCollector = () => {
      
       console.log(err);
     });
-    //setCollectorData();
   }
-
-  const handleChange = (e) => {
-    const {checked} = e.target;
-    console(e.target);
-    setStatus();
-}
-// let auth =  sessionStorage.getItem('jwt');
-const setStatus = (value) => {
-  // api call
-  fetch("http://127.0.0.1:8000/zerowaste/corporation/collectorlist/", {
-      headers:{
-        Accept: 'application/json',
-                 'Content-Type': 'application/json',
-                 'Authorization': auth,
-         },
-    method: "POST",
-    body: JSON.stringify({
-     
-      wardno:value,
-      id:id,
-      collectionDate:collectionDate,
-      status:"Pending",
-      // jwt:sessionStorage.getItem("jwt"),
-
-     
-    })
-   
-  })
-
-    .then(response => {
-      console.log("request: ", response);
-      return response.json();
-    })
-    .then(resJson => {
-      console.log("response: ", resJson);
-      setCollectorData(resJson.data)
-
-    })
-    .catch(err => {
-     
-      console.log(err);
-    });
-}
     useEffect(()=>{
       const fetchCollectorDetails = async () => {
        const response=await fetch(
@@ -158,6 +146,11 @@ const setStatus = (value) => {
 
         loadedCollectorDetails.push({
           firstname: responseData[key].firstname,
+          lastname: responseData[key].lastname,
+          email: responseData[key].email,
+          phoneno: responseData[key].phoneno,
+          address: responseData[key].address,
+          id: responseData[key].id,
 
         });
 
@@ -191,7 +184,7 @@ const setStatus = (value) => {
                 <select onChange={(e) => handleSupervisorData(e)} placeholder="Select Supervisor"
                 >
                     {superviserData?.map(superviser => {
-                    return (<option key={superviser.id} value={superviser.id}>{superviser.firstname}</option>);
+                    return (<option key={superviser.id} value={superviser.id}>{superviser.name}</option>);
                      })}
                  </select>
                 </div></label> 
@@ -206,23 +199,30 @@ const setStatus = (value) => {
             <table class="table">
               <thead>
                 <tr>
-                   <th>Collector Name</th>
-                  <th> Select<br/></th>
+                   <th>Collector First Name</th>
+                  <th> Last Name</th>
+                  <th> Email</th>
+                  <th> Phone Number</th>
+                  <th> Address</th>
+                  <th> CollectorId</th>
                 </tr>
               </thead>
               <tbody>
                 {collectorData?.map((item, index) =>(
                     <tr key={index}>
                       <td>{item.firstname}</td>
-                      <td><input type="checkbox" id="collector" name="collector" onchange={(e) =>handleChange(e)} value="collector_id"/></td>
+                      <td>{item.lastname}</td>
+                      <td>{item.email}</td>
+                      <td>{item.phoneno}</td>
+                      <td>{item.address}</td>
+                      <td>{item.id}</td>
                       </tr>
                      
                       ))}
               </tbody>
               </table>
               </div>
-              <button type="submit" onClick={submitHandler}
-      >Allocate Collector </button>
+              <button type="submit" onClick={submitHandler}>Allocate Collector </button>
         </div>
       );
    

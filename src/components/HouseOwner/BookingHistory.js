@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import classes from './Bookinghistory.css';
+import classes from './Bookinghistory.module.css';
+import DataTable from "react-data-table-component";
+
 function History() {
   const [data, setData] = useState([]);
  
@@ -25,60 +27,35 @@ function History() {
              
             })
             .then((res)=>{
-              // if (!res.ok){
-              //   throw  new Error('something went wrong!');
-              //  }
               console.log("response: ", res);
-              const responseData= res;
-              const loadedUserDetails=[];
-              for (const key in responseData){
-                loadedUserDetails.push({
-                  bookingdate: responseData[key].bookingdate,
-                  collectiondate: responseData[key].collectiondate,
-                  wastetype: responseData[key].wastetype,
-                  supervisorname: responseData[key].supervisorname,
-                });
-              }
-              setData(loadedUserDetails);
+              setData(res)
+           
             })    
-     
-    // };
-    // fetchUserDetails().catch((error) => {
-    // })  
     },[])
+    const columns = [
+      {
+        name: "Booking Date",
+        selector: (row) => row.bookingdate,
+      },
+      {
+        name: "Collected Date",
+        selector: (row) => row.collectiondate,
+      },
+      {
+        name: "Waste Type",
+        selector: (row) => row.wastetype,
+      },
+      {
+        name: "Supervisor Name",
+        selector: (row) => row.supervisorname,
+      },
+    ]
 
 
   return (
-    <div className="bookinghistory">
-     
-        <h1 className='text-center mt-4'>Previous Bookings</h1>
-       
-
-       
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Booking Date</th>
-              <th>Collection Date</th>              
-              <th>Waste Type</th>
-              <th>Supervisor Name</th>
-             
-            </tr>
-          </thead>
-          <tbody>
-            {data
-              .map((item, index) =>(
-                <tr key={index}>
-                  <td>{item.bookingdate}</td>
-                  <td>{item.collectiondate}</td>                
-                  <td>{item.wastetype}</td>
-                  <td>{item.supervisorname}</td>
-                  </tr>
-                  ))}
-                 
-          </tbody>
-         
-          </table>
+    <div className={classes.table}>
+    <h3>BOOKING HISTORY</h3>
+    <DataTable columns={columns} data={data} pagination />
      
     </div>
   );

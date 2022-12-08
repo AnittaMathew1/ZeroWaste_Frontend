@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import classes from './Bookinghistory.css';
+// import classes from './Bookinghistory.css';
 import { useNavigate } from 'react-router-dom';
 function Bill() {
   const navigate = useNavigate();
