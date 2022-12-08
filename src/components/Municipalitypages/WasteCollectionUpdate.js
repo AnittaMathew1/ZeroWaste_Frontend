@@ -84,7 +84,7 @@ const handleStatusCompleted = () => {
        },
   method: "POST",
   body: JSON.stringify({
-    status: "Completed",
+    status: "Collected",
     wardno: wardno,
     collection_date:collection_date,
 
