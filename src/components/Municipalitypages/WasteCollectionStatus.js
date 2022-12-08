@@ -1,15 +1,55 @@
 import './bookingstatusreport.css';
 import classes from '../HouseOwner/Login.module.css';
+
 import React, { useEffect, useState } from 'react';
 const WasteCollectionStatus = () => {
     const [data, setData] = useState([]);
     const [wardData, setWardData] = useState();
     const [wardno, setWardNo] = useState('');
-   
+    const [collectionDate, setCollectionDate] = useState('');
     const handleDate = (e) => {
-      // setMessage(e.target.value);
-    // console.log(email)
+    e.preventDefault();
+    setCollectionDate(e.target.value);
+    console.log(e.target.value)
+    }
+
+    let auth =  sessionStorage.getItem('jwt');
+  const getCollectorDetails = (value)  => {
+    //API call
+    fetch("http://127.0.0.1:8000/zerowaste/corporation/collectorlist/", {
+      headers:{
+        Accept: 'application/json',
+                 'Content-Type': 'application/json',
+                 'Authorization': auth,
+         },
+    method: "POST",
+    body: JSON.stringify({
+     
+      collectionDate:collectionDate,
+      // jwt:sessionStorage.getItem("jwt"),
+
+     
+    })
+   
+  })
+
+    .then(response => {
+      console.log("request: ", response);
+      return response.json();
+    })
+    .then(resJson => {
+      console.log("response: ", resJson);
+      // setCollectorData(resJson.data)
+
+    })
+    .catch(err => {
+     
+      console.log(err);
+    });
+    //setCollectorData();
   }
+
+
   useEffect(()=>{
     getWardData();
   },[]);
@@ -47,13 +87,9 @@ const WasteCollectionStatus = () => {
       for (const key in responseData){
 
         loadedUserDetails.push({
-          firstname: responseData[key].firstname,
-          lastname: responseData[key].lastname,
-          address: responseData[key].address,
-          phoneno: responseData[key].phoneno,
-          wastetype:responseData[key].wastetype,
-          collectorid:responseData[key].collectorid,
-          status:responseData[key].status,
+          wardname: responseData[key].wardname,
+          supervisor: responseData[key].supervisor,
+          status: responseData[key].status,
 
         });
 
@@ -69,11 +105,13 @@ const WasteCollectionStatus = () => {
 
     },[])
     return (
-        <div>
           <div className="bookingstatus">
             <div className='statushead'>
             <h1 >Booking Status Report</h1>
             </div>
+            <div className="itemm">
+            <label className="dropdownn"><b>Select Date:</b></label>
+            <input type="date" id="slotdate" name="collection-date" min="2022-12-01" onChange={(e) =>handleDate(e)}/>
 
             {/* <Table striped bordered hover className='table'>  */}
            <div className="bookingstatusreport"> 
@@ -100,25 +138,17 @@ const WasteCollectionStatus = () => {
             <table class="table">
               <thead>
                 <tr>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Address</th>
-                  <th>Phone no:</th>
-                  <th>Waste Type:</th>
-                  <th>Collector Id:</th>
-                  <th>Status:</th>
+                  <th>Ward Name</th>
+                  <th>Supervisor Name</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
                 {data
                   .map((item, index) =>(
                     <tr key={index}>
-                      <td>{item.firstname}</td>
-                      <td>{item.lastname}</td>
-                      <td>{item.address}</td>
-                      <td>{item.phoneno}</td>
-                      <td>{item.wastetype}</td>
-                      <td>{item.collectorid}</td>
+                      <td>{item.wardname}</td>
+                      <td>{item.supervisor}</td>
                       <td>{item.status}</td>
                       </tr>
                       

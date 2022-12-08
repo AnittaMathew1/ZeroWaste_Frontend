@@ -12,18 +12,8 @@ const [wardno, setWardNo] = useState('');
 const [status, setStatus] = useState();
 
 const current = new Date();
-  const status_date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
-  console.log(status_date);
-
-// const handleQuantity = (e) => {
-//   setQuantity(e.target.value);
-// }
-//   const handleDate = (e) => {
-//     e.preventDefault();
-//     setCollectionDate(e.target.value);
-//     console.log(e.target.value)
- 
-// }
+  const collection_date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
+  console.log(collection_date);
 useEffect(()=>{
   getWardData();
 },[]);
@@ -42,18 +32,23 @@ const getWardData = () => {
       console.log(err);
     });
 }
+const handleWardno =(e)=> {
+  e.preventDefault();
+  setWardNo(e.target.value);
+  console.log(e.target.value)
+  // console.log(wardno)
+}
 
+const handleStatusProgress = () => {
 
-const handleRegister = () => {
-
-    fetch("http://127.0.0.1:8000/zerowaste/houseowner/slotbooking/", {
+    fetch("http://127.0.0.1:8000/zerowaste/corporation/collectionstatusupdate/", {
     headers: { "Content-Type": "application/json" },
     method: "POST",
     body: JSON.stringify({
       status: status,
       
       // collection_date:collectionDate,
-      status_date:status_date,
+      collection_date:collection_date,
       jwt:sessionStorage.getItem("jwt"),
 
      
@@ -77,17 +72,20 @@ const handleRegister = () => {
 
   //   console.log(firstnameValidationError,pincode);
 }
-const handleStatusC = () => {
+let auth =  sessionStorage.getItem('jwt');
+const handleStatusCompleted = () => {
 
-  fetch("http://127.0.0.1:8000/zerowaste/houseowner/slotbooking/", {
-  headers: { "Content-Type": "application/json" },
+  fetch("http://127.0.0.1:8000/zerowaste/corporation/collectionstatusupdate/", {
+    headers:{
+      Accept: 'application/json',
+               'Content-Type': 'application/json',
+               'Authorization': auth,
+       },
   method: "POST",
   body: JSON.stringify({
-    status: status,
-    
-    // collection_date:collectionDate,
-    status_date:status_date,
-    jwt:sessionStorage.getItem("jwt"),
+    status: "Completed",
+    wardno: wardno,
+    collection_date:collection_date,
 
    
   })
@@ -118,7 +116,7 @@ console.log(sessionStorage.getItem('jwt'))
       <div className="itemm">
       <label htmlFor='name'>Ward :
             <div className="dropdown">
-              <select required ref={wardInputRef} placeholder="Select Ward Number"
+              <select onChange={(e) => handleWardno(e)} required ref={wardInputRef} placeholder="Select Ward Number"
              >
         {wardData?.map(ward => {
             return (<option key={ward.wardno} value={ward.wardno}>{ward.wardname}</option>);
@@ -126,12 +124,12 @@ console.log(sessionStorage.getItem('jwt'))
       </select>
       </div></label>
          <div className='buttonss'> 
-              <button type="submit" className='butn' id="two" onClick={handleStatusC}>
+              <button type="submit" className='butn' id="two" onClick={handleStatusCompleted}>
                 Collected
               </button>
               </div>
               <div className='button'> 
-              <button type="submit" className='butnn' id="two" onClick={handleRegister}>
+              <button type="submit" className='butnn' id="two" onClick={handleStatusProgress}>
                 In Progress
               </button>
           </div>

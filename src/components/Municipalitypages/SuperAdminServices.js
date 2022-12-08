@@ -38,7 +38,7 @@ const SuperAdminservices = (props) => {
             </NavLink>
           </li>
           <li>
-            <NavLink to ='/Bookingstatus' className={classes.usertext}>
+            <NavLink to ='/wastecollectionstatus' className={classes.usertext}>
           <img src={img4}/> 
               <h4>Waste Collection Status</h4>
             </NavLink>

@@ -7,15 +7,22 @@ const AllocateCollector = () => {
     const [wardData, setWardData] = useState();
     const [superviserData, setSuperviserData] = useState();
     const [wardno, setWardNo] = useState('');
+    const [id, setid] = useState('');
+    const [collectionDate, setCollectionDate] = useState('');
     const [collectorData, setCollectorData] = useState([]);
     const submitHandler = (event) => {
        
     }
     const handleDate = (e) => {
-     
+      e.preventDefault();
+      setCollectionDate(e.target.value);
+      console.log(e.target.value)
   }
   useEffect(()=>{
     getWardData();
+  },[]);
+  useEffect(()=>{
+    getSuperviserData();
   },[]);
   const getWardData = () => {
     fetch("http://127.0.0.1:8000/zerowaste/wards/",
@@ -32,8 +39,14 @@ const AllocateCollector = () => {
         console.log(err);
       });
   }
+  const handleSupervisorData =(e)=> {
+    e.preventDefault();
+    setid(e.target.value);
+    // getCollectorDetails(e.target.value);
+    console.log("supervisor",e.target.value)
+  }
   const getSuperviserData = () => {
-    fetch("https://superviser-7beb7-default-rtdb.firebaseio.com/superviser.json",
+    fetch("http://127.0.0.1:8000/zerowaste/corporationapp/supervisorslist/",
     {
       method: "GET",
     }).then((response) => {
@@ -52,6 +65,7 @@ const AllocateCollector = () => {
     getCollectorDetails(e.target.value);
     console.log(e.target.value)
   }
+  
   let auth =  sessionStorage.getItem('jwt');
   const getCollectorDetails = (value)  => {
     //API call
@@ -87,6 +101,49 @@ const AllocateCollector = () => {
     });
     //setCollectorData();
   }
+
+  const handleChange = (e) => {
+    const {checked} = e.target;
+    console(e.target);
+    setStatus();
+}
+// let auth =  sessionStorage.getItem('jwt');
+const setStatus = (value) => {
+  // api call
+  fetch("http://127.0.0.1:8000/zerowaste/corporation/collectorlist/", {
+      headers:{
+        Accept: 'application/json',
+                 'Content-Type': 'application/json',
+                 'Authorization': auth,
+         },
+    method: "POST",
+    body: JSON.stringify({
+     
+      wardno:value,
+      id:id,
+      collectionDate:collectionDate,
+      status:"Pending",
+      // jwt:sessionStorage.getItem("jwt"),
+
+     
+    })
+   
+  })
+
+    .then(response => {
+      console.log("request: ", response);
+      return response.json();
+    })
+    .then(resJson => {
+      console.log("response: ", resJson);
+      setCollectorData(resJson.data)
+
+    })
+    .catch(err => {
+     
+      console.log(err);
+    });
+}
     useEffect(()=>{
       const fetchCollectorDetails = async () => {
        const response=await fetch(
@@ -115,7 +172,6 @@ const AllocateCollector = () => {
 
     },[])
     return (
-        <div>
           <div className="bookingstatus">
             <div className='statushead'>
             <h1 >Allocate Collector</h1>
@@ -132,16 +188,18 @@ const AllocateCollector = () => {
                 </div></label> 
                 <label className="itemm">Superviser :
                 <div className="dropdown">
-                <select onChange={(e) => handleWardno(e)} placeholder="Select Ward Number"
+                <select onChange={(e) => handleSupervisorData(e)} placeholder="Select Supervisor"
                 >
                     {superviserData?.map(superviser => {
-                    return (<option key={superviser.id} value={superviser.id}>{superviser.name}</option>);
+                    return (<option key={superviser.id} value={superviser.id}>{superviser.firstname}</option>);
                      })}
                  </select>
                 </div></label> 
                 <br></br>
-                <label className="itemm">Collection Date:</label>
-         <input type="date" id="slotdate" className="itemm" min="2022-12-01" onChange={(e) =>handleDate(e)}/>
+                <div className="itemm">
+
+         <label className="dropdownn"><b>Select Date:</b></label>
+         <input type="date" id="slotdate" name="collection-date" min="2022-12-01" onChange={(e) =>handleDate(e)}/>
       </div>
       </div>
       <div className="tablereport">
@@ -149,14 +207,14 @@ const AllocateCollector = () => {
               <thead>
                 <tr>
                    <th>Collector Name</th>
-                  <th><input type="checkbox"  /> Select All<br/></th>
+                  <th> Select<br/></th>
                 </tr>
               </thead>
               <tbody>
                 {collectorData?.map((item, index) =>(
                     <tr key={index}>
                       <td>{item.firstname}</td>
-                      <td><input type="checkbox" id="collector" name="collector" value="collector_id"/></td>
+                      <td><input type="checkbox" id="collector" name="collector" onchange={(e) =>handleChange(e)} value="collector_id"/></td>
                       </tr>
                      
                       ))}
