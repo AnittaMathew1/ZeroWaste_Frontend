@@ -3,7 +3,7 @@
   .auth {
     margin: 6rem auto;
     width: 95%;
-    max-width: 25rem;
+    max-width: 30rem;
     border-radius: 20px;
     /* background-color: #2c8654; */
     background-image: url('../../Assets/corporationlogin.png');
@@ -65,7 +65,7 @@
   }
   
   .actions .toggle {
-    margin-top: 1rem;
+    margin-top: -70px;
     background-color: transparent;
     color: #fbf8fd;
     border: none;
@@ -76,6 +76,7 @@
     background-color: transparent;
     color: #f2f0f4;
   }
-  button{
-    
+  .control .required-field {
+    content: "hello";
+    color: red;
   }

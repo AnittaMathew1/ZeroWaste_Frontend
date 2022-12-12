@@ -7,13 +7,15 @@ const ContractEmployeeEdit = ({
 }) => {
   return (
     <tr>
+       <td>{editFormData.a}</td>
+       <td>{editFormData.b}</td>
       <td>
         <input
           type="text"
           required="required"
           placeholder="Enter email"
           name="f"
-          value={editFormData.f}
+          value={editFormData.c}
           onChange={handleEditFormChange}
         ></input>
       </td>
@@ -33,7 +35,7 @@ const ContractEmployeeEdit = ({
           required="required"
           placeholder="Enter Address"
           name="c"
-          value={editFormData.c}
+          value={editFormData.e}
           onChange={handleEditFormChange}
         ></input>
       </td>

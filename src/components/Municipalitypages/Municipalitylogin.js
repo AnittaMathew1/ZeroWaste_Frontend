@@ -25,7 +25,6 @@ const MunicipalityLogin = () => {
     })
  
       .then(response => {
-        console.log("hello");
         console.log("request: ", response);
         return response.json();
       })

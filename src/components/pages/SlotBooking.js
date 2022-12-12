@@ -1,20 +1,17 @@
 import React, { useEffect, useState , useReducer} from 'react';
-import { Nav } from "react-bootstrap";
-import { Link } from 'react-router-dom';
 import './SlotBooking.css';
-// import { Link } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
 
 
 const SlotBooking = (props) => {
   var validated =false
-const [collectionDate, setCollectionDate] = useState('');
+  const navigate = useNavigate();
 const [id, setWasteid] = useState('');
 const [wasteData, setWasteData] = useState();
 const [quantity, setQuantity] = useState();
 
 const current = new Date();
   const booking_date = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
-  console.log(booking_date);
 
 useEffect(()=>{
   getWasteData();
@@ -25,7 +22,6 @@ const getWasteData = () => {
   {
     method: "GET",
   }).then((response) => {
-      // console.log("response Ward data: ", response.json());
       return response.json();
     })
     .then(function (data) {
@@ -38,19 +34,11 @@ const getWasteData = () => {
 
 const handleQuantity = (e) => {
   setQuantity(e.target.value);
-  console.log(e.target.value)
 }
 const handleWasteid =(e)=> {
   e.preventDefault();
   setWasteid(e.target.value);
-  console.log(e.target.value)
 
-}
-  const handleDate = (e) => {
-    e.preventDefault();
-    setCollectionDate(e.target.value);
-    console.log(e.target.value)
- 
 }
 
 
@@ -69,28 +57,26 @@ const handleSubmit = () => {
       waste_id:id,
       booking_date:booking_date,
       quantity: quantity,
-      // jwt:sessionStorage.getItem("jwt"),
-
      
     })
    
   })
 
-  console.log(sessionStorage.getItem('jwt'))
     .then(response => {
       console.log("request: ", response);
       return response.json();
     })
     .then(resJson => {
       console.log("response: ", resJson);
+      if(resJson.status ===1){
+        navigate('/slotbooked'); 
+      }
 
     })
     .catch(err => {
      
       console.log(err);
     });
-
-  //   console.log(firstnameValidationError,pincode);
 }
 
   return (
@@ -98,7 +84,6 @@ const handleSubmit = () => {
       <h2 className="registerhead">Book Your Slot</h2>
      
       <label className="itemm"><b>Waste Type :</b>
-       {/* <input className="inputarea" type="text" name="wardno" onChange={()=>handleWardno()} />  */}
        <div className="dropdown">
         <select className="dropdownn" onChange={(e) => handleWasteid(e)}>
           {wasteData?.map(waste => {
@@ -111,11 +96,9 @@ const handleSubmit = () => {
         /> </label><h6>(1 Bucket = 1 Kg)</h6>
       <div className="itemm">
          <div className='buttons'> 
-          <Link to="/slotbooked"> 
               <button type="submit" className='butn' id="two" onClick={handleSubmit}>
                 Submit
               </button>
-            </Link>      
           </div>
           </div>
     </div>

@@ -37,9 +37,9 @@ const Homeservices = (props) => {
             </NavLink>
           </li>
           <li>
-            <NavLink to ='/contractemployee' className={classes.usertext}>
+            <NavLink to ='/contractemployeeservices' className={classes.usertext}>
           <img src={img2}/> 
-              <h4>Contract Employees</h4>
+              <h4>Contract Employees Services</h4>
             </NavLink>
           </li>
         </ul>

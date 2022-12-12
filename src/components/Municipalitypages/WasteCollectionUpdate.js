@@ -1,6 +1,5 @@
 import React, { useEffect, useState , useRef} from 'react';
 import './wastecollectionupdate.css';
-// import { Link } from "react-bootstrap";
 
 
 const WasteCollectionUpdate = (props) => {

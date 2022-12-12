@@ -1,7 +1,6 @@
 import React, {useEffect , useState , Fragment} from 'react';
 import classes from './ContractEmployee.module.css';
 import ContractEmployeeEdit from './ContractEmployeeEdit';
-import { Link } from "react-router-dom";
 
 
 
@@ -112,7 +111,7 @@ const ContractEmployee = () => {
             };
             fetchCollectorDetails().catch((error) => {
             })
-      },[])
+      },[data])
     
       const handleEditFormChange = (event) => {
         event.preventDefault();
@@ -167,7 +166,8 @@ const ContractEmployee = () => {
               b: item.b,
               c: item.c,
               d:item.d,
-              e:item.f,
+              e:item.e,
+              f:item.f,
               key:item.f
             };
             // console.log(formValues)
@@ -226,8 +226,8 @@ return (
               <th>First Name</th>
               <th>Last Name</th>
               <th>Email</th>
-              <th>Address</th>
               <th>Phone Number</th>
+              <th>Address</th>
               <th>Action</th>
              
             </tr>
@@ -283,12 +283,6 @@ return (
           </tbody> */}
           </table>
           </form>
-          <Link to="/contractemployeeExcel"> 
-              <button type="submit" className={classes.buttonthree}>
-                Add Employees
-              </button>
-            </Link>  
-         
           </div>
     </div>
     );

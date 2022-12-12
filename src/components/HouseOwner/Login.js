@@ -1,18 +1,12 @@
-// import React, { useEffect, useState , useReducer} from 'react';
-// import classes from './Login.module.css';
-// import Button from './Button';
-// import { Nav } from "react-bootstrap";
-// import { Link, useNavigate } from 'react-router-dom';
-// // import { Link } from "react-bootstrap";
+
 import { useState, useRef, useContext,useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Link,useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import AuthContext from '../../store/auth-context';
 import classes from './AuthForm.module.css';
 
 const Login = (props) => {
   const navigate=useNavigate();
-  const [redirect, setRedirect] = useState(false);
   const [userValidationError, setuserValidationError] = useState('');
   // const history = useHistory();
   const firstnameInputRef = useRef();
@@ -32,19 +26,15 @@ const Login = (props) => {
   const [emailValidationErrorr, setEmailValidationErrorr] = useState('');
   const [loginValidationErrorr, setloginValidationErrorr] = useState('');
   const [phoneNoValidationErrorr, setPhoneNoValidationErrorr] = useState('');
+  const [passwordValidationErrorr, setPasswordValidationErrorr] = useState('');
+const [redirect, setRedirect] = useState(false);
+const [pincodeValidationError, setPincodeValidationError] = useState('');
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
-  // const handleWardno =(e)=> {
-  //   e.preventDefault();
-  //   setWardNo(e.target.value);
-  //   console.log(e.target.value)
-  //   // console.log(wardno)
-  // }
   useEffect(()=>{
     getWardData();
   },[]);
-  // ajay code for signup start***********
   function signuphandler() {
    
     const enteredfirstname = firstnameInputRef.current.value;
@@ -85,18 +75,26 @@ const Login = (props) => {
             'Content-Type': 'application/json',
           },
         })
-        
-        .then(data=>{
-          console.log("hii",data.redirected);
+        .then(response=>{
+          console.log("ress",response);
           setIsLoading(false);
-          setIsLogin(true);
+          
+          return response.json();
         }) 
-        .then((res) => {
+        .then(res => {
           console.log("responseeee: ", res);
+          if(res.status === 1){
+            setIsLogin(true);
+            setRedirect(true); 
+          }
+          if(redirect==false){
+            setEmailValidationErrorr(res.data.email[0]);
+            setPhoneNoValidationErrorr(res.data.phoneno[0]);
+          }
         });
-        // .then(resJson => {
-        //   console.log("response: ", resJson);
-        // });
+        //  .then(resJson => {
+        //    console.log("response: ", resJson);
+        //  });
   }
   const getWardData = () => {
     fetch("http://127.0.0.1:8000/zerowaste/wards/", 
@@ -142,6 +140,7 @@ const Login = (props) => {
         })
         .then(response => {
           console.log("request: ", response);
+          setIsLoading(false);
           return response.json();
           
         })
@@ -152,14 +151,11 @@ const Login = (props) => {
               sessionStorage.setItem("jwt",res.jwt);
               if(res.status === 1){
                 setRedirect(true);
+                setIsLogin(true);
                 navigate('/houseownerservices')    
               }
-              else
-              {
-                console("ammuz");
-                setEmailValidationErrorr('This email is already used');
-                
-                setPhoneNoValidationErrorr('This phonenumber is already used');
+              if(redirect==false){
+                setPasswordValidationErrorr(res.detail);
               }
             setIsLoading(false);
             if (res.ok) {
@@ -178,7 +174,7 @@ const Login = (props) => {
                   //   console.log("Anitta")
                   //   setuserValidationError('Invalid Username or Password');
                   //   alert(userValidationError);
-                  // }
+
                   if(res.header.redirect==false){
                     setloginValidationErrorr(res.detail);
                     console.log(setuserValidationError);
@@ -208,16 +204,16 @@ const Login = (props) => {
       <h1>{isLogin ? 'Login' : 'Sign up'}</h1>
       <form onSubmit={submitHandler}>
       {!isLogin && <div className={classes.control}>
-            <label htmlFor='name'>First name</label>
+            <label  htmlFor='name'>First name<i  style= {{ color : "red" }} >*</i></label>
           <input type='name' id='fname' required placeholder="Enter your first name"  ref={firstnameInputRef} />
-          <label htmlFor='name'>Last name</label>
+          <label class="required-field" htmlFor='name'>Last name<i  style= {{ color : "red" }} >*</i></label>
           <input type='name' id='lname' required placeholder="Enter your last name" ref={lastnameInputRef} />
-          <label htmlFor='name'>Address</label>
+          <label class="required-field" htmlFor='name'>Address<i  style= {{ color : "red" }} >*</i></label>
           <input type='name' id='address' required placeholder="Enter your address" ref={addressInputRef} />
-          <label htmlFor='name'>Pincode</label>
+          <label class="required-field" htmlFor='name'>Pincode<i  style= {{ color : "red" }} >*</i></label>
            <input type='tel' id='pincode' placeholder="666666" pattern="[0-9]{6}" minlength="6"
     maxlength="6" required ref={pincodeInputRef} />
-           <label htmlFor='name'>Ward :
+           <label class="required-field" htmlFor='name'>Ward<i  style= {{ color : "red" }} >*</i> :
             <div className="dropdown">
               <select required ref={wardInputRef} placeholder="Select Ward Number"
              >
@@ -226,24 +222,20 @@ const Login = (props) => {
         })}
       </select>
       </div></label> 
-          <label htmlFor='name'>Phone Number</label>
+          <label class="required-field" htmlFor='name'>Phone Number<i  style= {{ color : "red" }} >*</i></label>
           <input type='tel' pattern="[0-9]{10}" placeholder="9999999999" id='phoneno' minlength="10"
     maxlength="10" required ref={phonenoInputRef} />
     {phoneNoValidationErrorr && <div className="errormessage">{phoneNoValidationErrorr}</div>}
         </div>}
         <div className={classes.control}>
-          <label htmlFor='email'>Email</label>
+          <label class="required-field" htmlFor='email'>Email<i  style= {{ color : "red" }} >*</i></label>
           <input type='email' id='email' minlength="11" required placeholder="yourname@gmail.com" ref={emailInputRef} />
           {emailValidationErrorr && <div className="errormessage">{emailValidationErrorr}</div>}
         </div>
         <div className={classes.control}>
-          <label htmlFor='password'>Password</label>
-          <input
-            type='password'
-            id='password'
-            required
-            ref={passwordInputRef}
-          />
+          <label class="required-field" htmlFor='password'>Password<i  style= {{ color : "red" }} >*</i></label>
+          <input type='password' id='password' required ref={passwordInputRef} />
+          {passwordValidationErrorr && <div className="errormessage">{passwordValidationErrorr}</div>}
         </div>
         <div className={classes.actions}>
           {!isLoading && (

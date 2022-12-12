@@ -46,6 +46,7 @@ import WasteCollectionStatus from "./components/Municipalitypages/WasteCollectio
 import Payment from "./components/HouseOwner/Payment";
 import Bill from "./components/HouseOwner/Bill"
 import { CgLayoutGrid } from "react-icons/cg";
+import ContractEmployeeservices from "./components/Municipalitypages/ContractEmployeeservices";
 // import Payments from "./components/pages/Payments"; 
 
 function App() {
@@ -95,6 +96,7 @@ function App() {
         <Route path="/contractemployee" element={<ContractEmployee />} />
         <Route path="/contractemployeeExcel" element={<ContractEmployeeExcel />} />
         <Route path="/updatewastedetails" element={<UpdateWasteDetails />} />
+        <Route path="/contractemployeeservices" element={<ContractEmployeeservices />} />
 
 
         <Route path="/bill" element={<Bill />} />

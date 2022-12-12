@@ -1,8 +1,7 @@
 import React, { Component, useEffect, useState } from "react";
 import './Register.css';
 import ProjectCards from './ProjectCards.js';
-import {Nav} from "react-bootstrap";
-import { Link,useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import Button from "./Button";
 import classes from '../HouseOwner/Login.module.css';
 

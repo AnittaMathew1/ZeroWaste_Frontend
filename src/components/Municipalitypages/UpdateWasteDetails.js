@@ -39,7 +39,7 @@ const  UpdateWasteDetails = () => {
       }
       setData(loadedUserDetails);
           })
-    },[])
+    },[data])
 
   
     const handleAddFormChange = (event) => {

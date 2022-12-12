@@ -33,13 +33,17 @@ const AllocateCollector = () => {
      
     })
   
-    console.log(sessionStorage.getItem('jwt'))
+    // console.log(sessionStorage.getItem('jwt'))
       .then(response => {
         console.log("request: ", response);
         return response.json();
       })
       .then(resJson => {
         console.log("response: ", resJson);
+        if(resJson.status ===1)
+        {
+          navigate('/supervisorservices'); 
+        }
   
       })
       .catch(err => {
@@ -229,6 +233,245 @@ const AllocateCollector = () => {
     }
 
 export default AllocateCollector;
+
+
+
+
+
+
+
+// import './allocatecollector.css';
+// import { useNavigate } from 'react-router-dom';
+// import React, { useEffect, useState } from 'react';
+// import DataTable from "react-data-table-component";
+// const AllocateCollector = () => {
+//   const navigate = useNavigate();
+//     const [data, setData] = useState([]);
+//     const [wardData, setWardData] = useState();
+//     const [superviserData, setSuperviserData] = useState();
+//     const [wardno, setWardNo] = useState('');
+//     const [supervisor_id, setSuperviser] = useState('');
+//     const [collectionDate, setCollectionDate] = useState('');
+//     const [collectorData, setCollectorData] = useState([]);
+//     let auth =  sessionStorage.getItem('jwt');
+//     const submitHandler = (event) => {
+//       console.log("goback");
+//       fetch("http://127.0.0.1:8000/zerowaste/corporation/collectorallocation/", {  
+//         headers:{
+//           Accept: 'application/json',
+//                    'Content-Type': 'application/json',
+//                    'Authorization': auth,
+//            },
+//       method: "POST",
+//       body: JSON.stringify({
+//         wardno:wardno,
+//         supervisor_id:supervisor_id,
+//         collection_date:collectionDate,
+//         status: "Collector Allotted",
+ 
+       
+//       })
+     
+//     })
+ 
+//     console.log(sessionStorage.getItem('jwt'))
+//       .then(response => {
+//         console.log("request: ", response);
+//         return response.json();
+//       })
+//       .then(resJson => {
+//         console.log("response: ", resJson);
+ 
+//       })
+//       .catch(err => {
+       
+//         console.log(err);
+//       });
+//     }
+//     const handleDate = (e) => {
+//       e.preventDefault();
+//       setCollectionDate(e.target.value);
+//       console.log(e.target.value)
+//   }
+//   useEffect(()=>{
+//     getWardData();
+//   },[]);
+//   useEffect(()=>{
+//     getSuperviserData();
+//   },[]);
+//   const getWardData = () => {
+//     fetch("http://127.0.0.1:8000/zerowaste/wards/",
+//     {
+//       method: "GET",
+//     }).then((response) => {
+       
+//         return response.json();
+//       })
+//       .then(function (data) {
+//         setWardData(data);
+//       })
+//       .catch(err => {
+//         console.log(err);
+//       });
+//   }
+//   const handleSupervisorData =(e)=> {
+//     e.preventDefault();
+//     setSuperviser(e.target.value);
+//     console.log("supervisor",e.target.value)
+//   }
+//   const getSuperviserData = () => {
+//     fetch("http://127.0.0.1:8000/zerowaste/corporationapp/supervisorslist/",
+//     {
+//       method: "GET",
+//     }).then((response) => {
+//         return response.json();
+//       })
+//       .then(function (data) {
+//         setSuperviserData(data);
+//       })
+//       .catch(err => {
+//         console.log(err);
+//       });
+//   }
+//   const handleWardno =(e)=> {
+//     e.preventDefault();
+//     setWardNo(e.target.value);
+//     getCollectorDetails(e.target.value);
+//     console.log(e.target.value)
+//   }
+ 
+//   const getCollectorDetails = (value)  => {
+//     //API call
+//     fetch("http://127.0.0.1:8000/zerowaste/corporation/collectorlist/", {
+//       headers:{
+//         Accept: 'application/json',
+//                  'Content-Type': 'application/json',
+//                  'Authorization': auth,
+//          },
+//     method: "POST",
+//     body: JSON.stringify({
+     
+//       wardno:value,
+//       // jwt:sessionStorage.getItem("jwt"),
+
+     
+//     })
+   
+//   })
+
+//     .then(response => {
+//       console.log("request: ", response);
+//       return response.json();
+//     })
+//     .then(resJson => {
+//       console.log("response: ", resJson);
+//       setCollectorData(resJson.data)
+
+//     })
+//     .catch(err => {
+     
+//       console.log(err);
+//     });
+//   }
+//     useEffect(()=>{
+//       const fetchCollectorDetails = async () => {
+//        const response=await fetch(
+//          'http://127.0.0.1:8000/zerowaste/corporation/collectorlist/'
+//        );
+//        if (!response.ok){
+//         throw  new Error('something went wrong!');
+//        }
+//       setData(await response.json());
+//       }
+//     fetchCollectorDetails().catch((error) => {
+
+//     })  
+   
+//     },[])
+//     useEffect(()=>{
+//       getCollectorDetails(wardno)
+//       },[collectorData])
+
+//     const columns = [
+//       {
+//         name: "Collector First Name",
+//         selector: (row) => row.firstname,
+//       },
+//       {
+//         name: "Last Name",
+//         selector: (row) => row.lastname,
+//       },
+//       {
+//         name: "Email",
+//         selector: (row) => row.email,
+//       },
+//       {
+//         name: "Phone No",
+//         selector: (row) => row.phoneno,
+//       },
+//       {
+//         name: "Address",
+//         selector: (row) => row.address,
+//       },
+//       {
+//         name: "CollectorId",
+//         selector: (row) => row.id,
+//       },
+//     ]
+
+//     return (
+//           <div className="bookingstatus">
+//             <div className='statushead'>
+//             <h1 >Allocate Collector</h1>
+//             </div>
+//            <div className="bookingstatusreport"> 
+//                <label className="itemm">Ward Number :
+//                 <div className="dropdown">
+//                 <select onChange={(e) => handleWardno(e)} placeholder="Select Ward Number" oncl
+//                 >
+//                     {wardData?.map(ward => {
+//                     return (<option key={ward.wardno} value={ward.wardno}>{ward.wardname}</option>);
+//                      })}
+//                  </select>
+//                 </div></label> 
+//                 <label className="itemm">Superviser :
+//                 <div className="dropdown">
+//                 <select onChange={(e) => handleSupervisorData(e)} placeholder="Select Supervisor"
+//                 >
+//                     {superviserData?.map(superviser => {
+//                     return (<option key={superviser.id} value={superviser.id}>{superviser.name}</option>);
+//                      })}
+//                  </select>
+//                 </div></label> 
+//                 <br></br>
+//                 <div className="itemm">
+
+//          <label className="dropdownn"><b>Select Date:</b></label>
+//          <input type="date" id="slotdate" name="collection-date" min="2022-12-01" onChange={(e) =>handleDate(e)}/>
+//       </div>
+//       </div>
+//       <div className="tablereport">
+//       <DataTable columns={columns} data={data} pagination />
+//         </div>
+//               <button type="submit" onClick={submitHandler}>Allocate Collector </button>
+//         </div>
+//       );
+   
+//     }
+
+// export default AllocateCollector;
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

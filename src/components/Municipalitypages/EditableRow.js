@@ -7,6 +7,7 @@ const EditableRow = ({
 }) => {
   return (
     <tr>
+      <td>{editFormData.a}</td>
       <td>
         <input
           type="text"
