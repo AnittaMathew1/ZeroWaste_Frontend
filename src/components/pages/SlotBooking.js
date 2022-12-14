@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const SlotBooking = (props) => {
   var validated =false
   const navigate = useNavigate();
-const [id, setWasteid] = useState('');
+const [id, setWasteid ] = useState('');
 const [wasteData, setWasteData] = useState();
 const [quantity, setQuantity] = useState();
 

@@ -13,11 +13,17 @@ import Msignin from "./components/Municipalitypages/Municipalitylogin";
 import Slotbooking from "./components/pages/SlotBooking";
 import Houseownerservices from "./components/HouseOwner/Houseownerservices";
 import Municipalityservices from "./components/Municipalitypages/Municipalityservices";
-import Bookingstatusreport from "./components/Municipalitypages/AllocateCollectorLanding";
+import Bookingstatusreport from "./components/Municipalitypages/WasteReport";
 import SuperAdminServices from "./components/Municipalitypages/SuperAdminServices";
 import ContractEmployeeExcel from "./components/Municipalitypages/ContractEmployeeExcel";
 import UpdateWasteDetails from "./components/Municipalitypages/UpdateWasteDetails";
 import ContractEmployee from "./components/Municipalitypages/ContractEmployee";
+import SupervisorLandingPage from "./components/Municipalitypages/SupervisorDetails/SupervisorLandingPage";
+import SupervisorForm from "./components/Municipalitypages/SupervisorDetails/SupervisorForm";
+import SupervisorDetails from "./components/Municipalitypages/SupervisorDetails/SupervisorDetails";
+import PaymentHistory from "./components/HouseOwner/Payment/PaymentHistory";
+import ComplaintRegistration from "./components/HouseOwner/Complaint/ComplaintRegistration";
+import ComplaintStatus from "./components/HouseOwner/Complaint/ComplaintStatus";
 
 
 // import otpValidation from "./components/Projects/otpValidation"
@@ -44,7 +50,7 @@ import AllocateCollector from "./components/Municipalitypages/AllocateCollector"
 import WasteCollectionUpdate from "./components/Municipalitypages/WasteCollectionUpdate";
 import WasteCollectionStatus from "./components/Municipalitypages/WasteCollectionStatus"
 import Payment from "./components/HouseOwner/Payment";
-import Bill from "./components/HouseOwner/Bill"
+import Invoice from "./components/HouseOwner/Invoice";
 // import Invoice from "./components/HouseOwner/Invoice"
 import { CgLayoutGrid } from "react-icons/cg";
 import ContractEmployeeservices from "./components/Municipalitypages/ContractEmployeeservices";
@@ -99,8 +105,17 @@ function App() {
         <Route path="/updatewastedetails" element={<UpdateWasteDetails />} />
         <Route path="/contractemployeeservices" element={<ContractEmployeeservices />} />
         {/* <Route path="/invoice" element={<Invoice/>} /> */}
-        <Route path="/bill" element={<Bill />} />
+        <Route path="/invoice" element={<Invoice />} />
         {/* <Route path="/otpvalidation" element={<otpValidation />} />     */}
+        
+        <Route path="/Supervisorlandingpage" element={<SupervisorLandingPage />} />
+        <Route path="/Supervisorform" element={<SupervisorForm />} />
+        <Route path="/Supervisordetails" element={<SupervisorDetails />} />
+        <Route path="/paymenthistory" element={<PaymentHistory />} />
+        <Route path="/complaintregistration" element={<ComplaintRegistration />} />
+        <Route path="/complaintstatus" element={<ComplaintStatus />} />
+        
+
         </Routes>
         <Footer />
       </div>

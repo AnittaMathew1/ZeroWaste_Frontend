@@ -1,9 +1,9 @@
 
 import classes from './Municipalityservices.module.css';
-import img from './imgg1.png'
+import img from './logo1.0.jpg'
 import img1 from './img1.png'
 import img2 from './img2.png'
-import img3 from './img3.png'
+import img3 from './logo1.2.jpg'
 
 
 import { NavLink } from 'react-router-dom';

@@ -25,9 +25,15 @@ const Homeservices = (props) => {
             </NavLink>
           </li>
           <li>
-            <NavLink to ='/bill' className={classes.usertext}>
+            <NavLink to ='/invoice' className={classes.usertext}>
              <img src={img3}/>
               <h4>Bill Payment</h4>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to ='/paymenthistory' className={classes.usertext}>
+             <img src={img3}/>
+              <h4>Payment History</h4>
             </NavLink>
           </li>
           <li>
@@ -40,6 +46,18 @@ const Homeservices = (props) => {
             <NavLink to ='/bookingstatus' className={classes.usertext}>
           <img src={img2}/> 
               <h4>Booking Status</h4>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to ='/complaintregistration' className={classes.usertext}>
+          <img src={img2}/> 
+              <h4>Register Complaint</h4>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to ='/complaintstatus' className={classes.usertext}>
+          <img src={img2}/> 
+              <h4>Complaint Status</h4>
             </NavLink>
           </li>
         </ul>

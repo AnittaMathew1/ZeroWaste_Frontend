@@ -1,0 +1,93 @@
+.ComplaintRegistration{
+    background-image: url('../../../Assets/corporationlogin.png');
+    margin: auto;
+    width: 40%;
+    border: 3px solid rgb(70, 27, 27);
+    padding: 20px;
+    border-radius: 30px;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    box-sizing: border-box;
+    margin-bottom: 150px;    
+   
+
+}
+.control {
+    margin: 1rem 0;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+  }
+  
+  .control label,
+  .control input {
+    display: block;
+  }
+  
+  .control label {
+    font-weight: bold;
+    flex: 1;
+    color: #464646;
+    margin-bottom: 1.5rem;
+    /* margin-left: 10%; */
+    padding: 10px;
+  
+  }
+  
+  .control input {
+    flex: 5;
+    font: inherit;
+    padding: 0.35rem 0.35rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin:auto;
+    margin-bottom: 1.5rem;
+   
+    
+   
+  }
+
+  
+  .item
+  {
+   margin-top: 20px;
+   text-align: center;
+   justify-content: center;
+   display: inline;
+  
+      
+  }
+  .desc{
+    width:350px;
+    min-height: 100px;
+    /* margin-right: 40px; */
+  }
+.submit{
+      margin-left: 180px;
+      margin-top: 20px;
+      align-items: center;
+      text-align: center;
+      padding: .6rem 2rem;
+      width: 100px;
+      line-height: 1.5;
+      border-radius: .4rem;
+      /* color: #fff; */
+      /* background-color: #1b8bec; */
+      /* border-color: #6c757d; */
+      text-decoration: none;
+      border: 1px solid rgb(19, 19, 20);
+      background-color: #2d674f;
+      text-decoration-color: white;
+      justify-content: center;
+  }
+    @media (min-width: 768px) {
+    .control {
+      align-items: center;
+      flex-direction: row;
+      
+    }
+  }  
+
+  

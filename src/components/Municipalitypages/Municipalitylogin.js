@@ -1,11 +1,15 @@
-import { useRef } from 'react';
+import { useRef , useContext , useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classes from './Municipalitylogin.module.css';
+import AuthContext from '../../store/auth-context';
 
 const MunicipalityLogin = () => {
+  const [loginValidationErrorr, setloginValidationErrorr] = useState('');
+  const [redirect, setRedirect] = useState(false);
   const nameInputRef = useRef();
   const passwordInputRef = useRef();
   const navigate = useNavigate();
+  const authCtx = useContext(AuthContext);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -26,22 +30,27 @@ const MunicipalityLogin = () => {
  
       .then(response => {
         console.log("request: ", response);
+        if(response.headers.redirect === true){
+           setRedirect(true);
+                  }
         return response.json();
       })
       .then(resJson => {
         console.log("responsesss: ", resJson);
-        console.log("mynameisammu : ",resJson.status)
         sessionStorage.setItem("jwt",resJson.jwt);
+        authCtx.login(resJson.jwt);
 
         if((resJson.status === 1)&&(resJson.role ==2)){
-          navigate('/superadminservices'); 
+          navigate('/superadminservices');
         }
         else if((resJson.status === 1)&&(resJson.role ==3)){
-          navigate('/municipalityservices'); 
+          navigate('/municipalityservices');
         }
         else if((resJson.status === 1)&&(resJson.role ==4)){
-          navigate('/supervisorservices'); 
+          navigate('/supervisorservices');
         }
+        if( redirect === false ){
+                   setloginValidationErrorr(resJson.detail); }
      })
   };
   return(
@@ -66,6 +75,7 @@ const MunicipalityLogin = () => {
             ref={passwordInputRef}
           />
         </div>
+        {loginValidationErrorr && <div className="errormessage">{loginValidationErrorr}</div>}
         <button type='submit' className={classes.button} >Login</button>
         </form>    
      
