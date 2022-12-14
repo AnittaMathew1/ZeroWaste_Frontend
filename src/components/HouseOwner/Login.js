@@ -125,7 +125,7 @@ const [pincodeValidationError, setPincodeValidationError] = useState('');
     if (isLogin) {
       url =
 
-        'http://127.0.0.1:8000/zerowaste/houseowner/login/';
+        'http://127.0.0.1:8000/zerowaste/login/';
         fetch(url, {
           method: 'POST',
           body: JSON.stringify({
@@ -204,16 +204,16 @@ const [pincodeValidationError, setPincodeValidationError] = useState('');
       <h1>{isLogin ? 'Login' : 'Sign up'}</h1>
       <form onSubmit={submitHandler}>
       {!isLogin && <div className={classes.control}>
-            <label  htmlFor='name'>First name<i  style= {{ color : "red" }} >*</i></label>
+            <label  htmlFor='name'>First name<i  >*</i></label>
           <input type='name' id='fname' required placeholder="Enter your first name"  ref={firstnameInputRef} />
-          <label class="required-field" htmlFor='name'>Last name<i  style= {{ color : "red" }} >*</i></label>
+          <label class="required-field" htmlFor='name'>Last name<i >*</i></label>
           <input type='name' id='lname' required placeholder="Enter your last name" ref={lastnameInputRef} />
-          <label class="required-field" htmlFor='name'>Address<i  style= {{ color : "red" }} >*</i></label>
+          <label class="required-field" htmlFor='name'>Address<i >*</i></label>
           <input type='name' id='address' required placeholder="Enter your address" ref={addressInputRef} />
-          <label class="required-field" htmlFor='name'>Pincode<i  style= {{ color : "red" }} >*</i></label>
+          <label class="required-field" htmlFor='name'>Pincode<i  >*</i></label>
            <input type='tel' id='pincode' placeholder="666666" pattern="[0-9]{6}" minlength="6"
     maxlength="6" required ref={pincodeInputRef} />
-           <label class="required-field" htmlFor='name'>Ward<i  style= {{ color : "red" }} >*</i> :
+           <label class="required-field" htmlFor='name'>Ward<i >*</i> :
             <div className="dropdown">
               <select required ref={wardInputRef} placeholder="Select Ward Number"
              >
@@ -222,18 +222,18 @@ const [pincodeValidationError, setPincodeValidationError] = useState('');
         })}
       </select>
       </div></label> 
-          <label class="required-field" htmlFor='name'>Phone Number<i  style= {{ color : "red" }} >*</i></label>
+          <label class="required-field" htmlFor='name'>Phone Number<i >*</i></label>
           <input type='tel' pattern="[0-9]{10}" placeholder="9999999999" id='phoneno' minlength="10"
     maxlength="10" required ref={phonenoInputRef} />
     {phoneNoValidationErrorr && <div className="errormessage">{phoneNoValidationErrorr}</div>}
         </div>}
         <div className={classes.control}>
-          <label class="required-field" htmlFor='email'>Email<i  style= {{ color : "red" }} >*</i></label>
+          <label class="required-field" htmlFor='email'>Email<i >*</i></label>
           <input type='email' id='email' minlength="11" required placeholder="yourname@gmail.com" ref={emailInputRef} />
           {emailValidationErrorr && <div className="errormessage">{emailValidationErrorr}</div>}
         </div>
         <div className={classes.control}>
-          <label class="required-field" htmlFor='password'>Password<i  style= {{ color : "red" }} >*</i></label>
+          <label class="required-field" htmlFor='password'>Password<i >*</i></label>
           <input type='password' id='password' required ref={passwordInputRef} />
           {passwordValidationErrorr && <div className="errormessage">{passwordValidationErrorr}</div>}
         </div>

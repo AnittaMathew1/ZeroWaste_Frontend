@@ -6,24 +6,53 @@ import { useNavigate } from 'react-router-dom';
 
 
 function Payment() {
+    const current = new Date();
+    const [status, setStatus] = useState();
+    const paydate = `${current.getFullYear()}-${current.getMonth()+1}-${current.getDate()}`;
     const [amount, setamount] = useState('');
     const navigate = useNavigate();
+    const [totalAmount, setTotalAmount] = useState('');
+    let auth =  sessionStorage.getItem('jwt');
+      // console.log(auth)
+      // const fetchUserDetails = async () => {
+
+      //  const response=await
+       fetch('http://127.0.0.1:8000/zerowaste/houseowner/invoice/',{
+          method: 'GET',
+          headers:{
+            Accept: 'application/json',
+                     'Content-Type': 'application/json',
+                     'Authorization': auth,
+             },
+            })
+            .then(response => {
+              console.log("request: ", response);
+              return response.json();
+             
+            })
+            .then((res)=>{
+              console.log("response: ", res);
+              setTotalAmount(res.grandtotal);
+              console.log("total amount",res.grandtotal);
+           
+            })
     const handlesubmit = (e) => {
         e.preventDefault();
-        if (amount === "") {
-            alert("Please enter amount");
-        }
-        else {
+        // if (amount === "") {
+        //     alert("Please enter amount");
+        // }
+        // else {
             var options = {
                 key: "rzp_test_vCz7dMxFI6qC94",
                 key_secret: "395d1wGWipzT22lMFrAspjjx",
-                amount: amount * 100,
+                amount: totalAmount * 100,
                 currenty: "INR",
                 name: "Test Razorpay",
                 description: "Razorpay project",
                 handler: function (response) {
                     console.log(response.razorpay_payment_id);
                     alert("Payment Successfull");
+                    
                 },
                 prefill: {
                     name: "",
@@ -40,8 +69,36 @@ function Payment() {
             var pay = new window.Razorpay(options);
             pay.open();
             
-        }
-        navigate('/bill'); 
+        // }
+        fetch("http://127.0.0.1:8000/zerowaste/houseowner/payment/", {
+            headers:{
+                Accept: 'application/json',
+                         'Content-Type': 'application/json',
+                         'Authorization': auth,
+                 },
+                        method: "POST",
+                        body: JSON.stringify({
+                        paydate: paydate,
+                        grandtotal: totalAmount,
+                        status: 1,
+                        })
+                    })
+                        .then(response => {
+                        console.log("request: ", response);
+                        // if(response.status === 200){
+                        //   this.setState({
+                        //     redirect:true,
+                        //   })      
+                        // }
+                        return response.json();
+                        })
+                        .then(resJson => {
+                        console.log("response: ", resJson);
+                        console.log("status",resJson.status);
+                        if(resJson.status === 1){
+                            navigate('/houseownerservices')    
+                        }
+                    })
     }
     return (
         <section className='main'>
@@ -76,7 +133,7 @@ function Payment() {
                                 {/* <p>Enter the amount to be transferred to the virtual account as the <strong>test payment.</strong></p> */}
                                 <form>
                                     <div className="form-group mt-5">
-                                        <input type="text" className="form-control" value={amount} onChange={(e) => setamount(e.target.value)} placeholder="Enter amount" />
+                                        <input type="text" className="form-control" value={totalAmount}  placeholder={totalAmount} />
                                     </div>
                                     <div className="form-group">
                                         <button type="submit" onClick={handlesubmit} className="btn-submit">Continue</button>

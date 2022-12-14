@@ -42,7 +42,7 @@ const AllocateCollector = () => {
         console.log("response: ", resJson);
         if(resJson.status ===1)
         {
-          navigate('/supervisorservices'); 
+          navigate('/superadminservices'); 
         }
   
       })

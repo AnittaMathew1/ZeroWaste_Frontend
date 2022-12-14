@@ -45,6 +45,7 @@ import WasteCollectionUpdate from "./components/Municipalitypages/WasteCollectio
 import WasteCollectionStatus from "./components/Municipalitypages/WasteCollectionStatus"
 import Payment from "./components/HouseOwner/Payment";
 import Bill from "./components/HouseOwner/Bill"
+// import Invoice from "./components/HouseOwner/Invoice"
 import { CgLayoutGrid } from "react-icons/cg";
 import ContractEmployeeservices from "./components/Municipalitypages/ContractEmployeeservices";
 // import Payments from "./components/pages/Payments"; 
@@ -97,8 +98,7 @@ function App() {
         <Route path="/contractemployeeExcel" element={<ContractEmployeeExcel />} />
         <Route path="/updatewastedetails" element={<UpdateWasteDetails />} />
         <Route path="/contractemployeeservices" element={<ContractEmployeeservices />} />
-
-
+        {/* <Route path="/invoice" element={<Invoice/>} /> */}
         <Route path="/bill" element={<Bill />} />
         {/* <Route path="/otpvalidation" element={<otpValidation />} />     */}
         </Routes>

@@ -12,7 +12,7 @@ const MunicipalityLogin = () => {
     const enteredEmail = nameInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
-    fetch("http://127.0.0.1:8000/zerowaste/corporation/login/", {
+    fetch("http://127.0.0.1:8000/zerowaste/login/", {
 
       headers: { "Content-Type": "application/json" },
       method: "POST",
