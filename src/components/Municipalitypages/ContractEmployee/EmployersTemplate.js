@@ -1,5 +1,5 @@
 import React from "react";
-import { EXCEL_FILE_BASE64 } from "./Constants";
+import { EXCEL_FILE_BASE64 } from "../Constants";
 import FileSaver from "file-saver";
 
 

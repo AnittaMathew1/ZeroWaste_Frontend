@@ -35,11 +35,12 @@ const AllocateCollector = () => {
       })
       .then(resJson => {
         console.log("response: ", resJson);
-        if((resJson.status ===1)&&(role === 2))
+        console.log("status",resJson.status);
+        if((resJson.status === 1)&&(role === 2))
         {
           navigate('/superadminservices'); 
         }
-        if((resJson.status ===1)&&(role === 3))
+        if((resJson.status === 1)&&(role === 3))
         {
           navigate('/municipalityservices'); 
         }
@@ -82,7 +83,7 @@ const AllocateCollector = () => {
     console.log("supervisor",e.target.value)
   }
   const getSuperviserData = () => {
-    fetch("http://127.0.0.1:8000/zerowaste/corporationapp/supervisorslist/",
+    fetch("http://127.0.0.1:8000/zerowaste/corporation/supervisorslist/",
     {
       method: "GET",
     }).then((response) => {
@@ -168,7 +169,7 @@ const AllocateCollector = () => {
             <h1 >Allocate Collector</h1>
             </div>
            <div className="bookingstatusreport"> 
-               <label className="itemm">Ward Number :
+               <label className="itemm">Ward Name :
                 <div className="dropdown">
                 <select onChange={(e) => handleWardno(e)} placeholder="Select Ward Number" oncl
                 >
@@ -177,7 +178,7 @@ const AllocateCollector = () => {
                      })}
                  </select>
                 </div></label> 
-                <label className="itemm">Superviser :
+                <label className="itemm">Supervisor :
                 <div className="dropdown">
                 <select onChange={(e) => handleSupervisorData(e)} placeholder="Select Supervisor"
                 >

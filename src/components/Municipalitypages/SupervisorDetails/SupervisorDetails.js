@@ -12,7 +12,7 @@ const SupervisorDetails = () => {
       //API call
       useEffect(()=>{
       
-        fetch('http://127.0.0.1:8000/zerowaste/corporationapp/supervisorsDetails/',{
+        fetch('http://127.0.0.1:8000/zerowaste/corporation/supervisorsdetails/',{
          method: 'GET',
          headers:{
            Accept: 'application/json',
@@ -74,7 +74,7 @@ const SupervisorDetails = () => {
             console.log(editFormData.b)
             console.log(editedData)
             const newDatas = [...data,editFormData];
-             fetch('http://127.0.0.1:8000/zerowaste/corporation/editcollector/',{
+             fetch('http://127.0.0.1:8000/zerowaste/corporation/editsupervisor/',{
                 method: 'PUT',
                 body: JSON.stringify({
                                       id:editFormData.f,
@@ -120,7 +120,7 @@ const SupervisorDetails = () => {
           };
   
       const deleteHandler = async(index) => {
-        const response = await fetch('http://127.0.0.1:8000/zerowaste/corporation/deletecollector/', {
+        const response = await fetch('http://127.0.0.1:8000/zerowaste/corporation/deletesupervisor/', {
         method: 'POST',
         body: JSON.stringify({
           id: index,

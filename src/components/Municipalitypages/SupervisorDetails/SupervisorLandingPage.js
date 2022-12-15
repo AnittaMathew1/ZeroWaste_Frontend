@@ -1,6 +1,6 @@
 import classes from './SupervisorLandingPage.module.css';
-import img4 from './img4.png'
-import img1 from './img1.png'
+import img4 from '../../../Assets/Municipality/SupervisorDetails/img4.png'
+import img1 from '../../../Assets/Municipality/SupervisorDetails/img1.png'
 
 
 import { NavLink } from 'react-router-dom';

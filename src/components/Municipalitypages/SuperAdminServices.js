@@ -1,8 +1,8 @@
 import classes from './Municipalityservices.module.css';
-import img from './logo1.0.jpg'
-import img1 from './img1.png'
-import img3 from './logo1.2.jpg'
-import img4 from './icon4.png'
+import img from '../../Assets/Municipality/logo1.0.jpg'
+import img1 from '../../Assets/Municipality/img1.png'
+import img3 from '../../Assets/Municipality/logo1.2.jpg'
+import img4 from '../../Assets/Municipality/icon4.png'
 
 
 

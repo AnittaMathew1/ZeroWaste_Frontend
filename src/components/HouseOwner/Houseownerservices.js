@@ -1,10 +1,10 @@
 
 import classes from './Houseownerservices.module.css';
-import img from './imgg1.png'
-import img1 from './img1.png'
-import img2 from './img2.png'
-import img3 from './img3.png'
-import img4 from './img1.0.png'
+import img from '../../Assets/HouseOwner/imgg1.png'
+import img1 from '../../Assets/HouseOwner/img1.png'
+import img2 from '../../Assets/HouseOwner/img2.png'
+import img3 from '../../Assets/HouseOwner/img3.png'
+import img4 from '../../Assets/HouseOwner/img1.0.png'
 
 
 import { NavLink } from 'react-router-dom';

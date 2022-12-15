@@ -15,9 +15,9 @@ import Houseownerservices from "./components/HouseOwner/Houseownerservices";
 import Municipalityservices from "./components/Municipalitypages/Municipalityservices";
 import Bookingstatusreport from "./components/Municipalitypages/WasteReport";
 import SuperAdminServices from "./components/Municipalitypages/SuperAdminServices";
-import ContractEmployeeExcel from "./components/Municipalitypages/ContractEmployeeExcel";
+import ContractEmployeeExcel from "./components/Municipalitypages/ContractEmployee/ContractEmployeeExcel";
 import UpdateWasteDetails from "./components/Municipalitypages/UpdateWasteDetails";
-import ContractEmployee from "./components/Municipalitypages/ContractEmployee";
+import ContractEmployee from "./components/Municipalitypages/ContractEmployee/ContractEmployee";
 import SupervisorLandingPage from "./components/Municipalitypages/SupervisorDetails/SupervisorLandingPage";
 import SupervisorForm from "./components/Municipalitypages/SupervisorDetails/SupervisorForm";
 import SupervisorDetails from "./components/Municipalitypages/SupervisorDetails/SupervisorDetails";
@@ -40,17 +40,13 @@ import BookingHistory from "./components/HouseOwner/BookingHistory";
 import Slotbooked from "./components/pages/Slotbooked";
 import Municipalitylogin from "./components/Municipalitypages/Municipalitylogin"
 import Bookingstatus from "./components/HouseOwner/Bookingstatus";
-import Collectorlogin from "./components/CollectorPages/Collectorlogin";
-import Collectorservices from "./components/CollectorPages/collectorservices"
 import AllocateCollector from "./components/Municipalitypages/AllocateCollector"
 import WasteCollectionUpdate from "./components/Municipalitypages/WasteCollectionUpdate";
 import WasteCollectionStatus from "./components/Municipalitypages/WasteCollectionStatus"
 import Payment from "./components/HouseOwner/Payment";
 import Invoice from "./components/HouseOwner/Invoice";
-// import Invoice from "./components/HouseOwner/Invoice"
 import { CgLayoutGrid } from "react-icons/cg";
-import ContractEmployeeservices from "./components/Municipalitypages/ContractEmployeeservices";
-// import Payments from "./components/pages/Payments"; 
+import ContractEmployeeservices from "./components/Municipalitypages/ContractEmployee/ContractEmployeeservices";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -79,8 +75,6 @@ function App() {
         <Route path="/Msignin" element={<Msignin />} />
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/collectorlogin" element={<Collectorlogin />} />
-        <Route path="/collectorservices" element={<Collectorservices />} />
         <Route path="/slotbook" element={<Slotbooking />} />
         <Route path="/slotbooked" element={<Slotbooked />} />      
         <Route path="/bookingstatusreport" element={<Bookingstatusreport />} />

@@ -1,8 +1,6 @@
-import classes from './Municipalityservices.module.css';
-import img4 from './img4.png'
-import img1 from './img1.png'
-
-
+import classes from '../Municipalityservices.module.css';
+import img4 from '../../../Assets/Municipality/img4.png';
+import img1 from '../../../Assets/Municipality/img1.png';
 import { NavLink } from 'react-router-dom';
 
 const ContractEmployeeservices = (props) => {
@@ -33,13 +31,6 @@ const ContractEmployeeservices = (props) => {
     </div> 
   );
 };
-
-// const textstyle = {
-//   color: "black",
-//   textAlign: "center",
-//   textdecoration: "none"
-// };
-
 export default ContractEmployeeservices;
 
 

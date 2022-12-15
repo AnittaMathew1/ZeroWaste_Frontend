@@ -11,7 +11,7 @@
     height:75vh ;
    padding: 2%;
    margin-bottom: 40%;
-   margin-top: 4%;
+   margin-top: 10%;
    margin-right: 10%;
    margin-left: 10%;
    text-align: center;
@@ -34,8 +34,10 @@
 }
 
 .control label {
-    margin-right: 3rem;
-   
+    margin-right: 1rem;
+    display: inline-block;
+    width: 150px;
+    text-align: right;
 }
 .forms button {
    

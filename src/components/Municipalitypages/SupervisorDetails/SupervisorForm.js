@@ -19,14 +19,13 @@ import classes from './SupervisorForm.module.css';
             email: emailInputRef.current.value,
             phoneno: phoneNoInputRef.current.value,
             address: addressInputRef.current.value,
-            roleid:4,
         };
        
         console.log(user);
         const myJSON = JSON.stringify(user);
         console.log(myJSON);
 
-          const response = await fetch('http://127.0.0.1:8000/zerowaste/corporationapp/addcollector/', {
+          const response = await fetch('http://127.0.0.1:8000/zerowaste/corporation/addsupervisor/', {
           method: 'POST',
           body: JSON.stringify(user),
           headers: {
@@ -34,6 +33,16 @@ import classes from './SupervisorForm.module.css';
                    'Content-Type': 'application/json',
                    'Authorization': auth,
           }
+        }) .then(res => {
+            if (res.ok) {
+                console.log("resdata",res);
+            }
+        })
+        .then(resJson => {
+            console.log("data",resJson)
+            if (resJson.status === 1) {
+                alert("Supervisor added successfully.")
+            }
         });
         const data = await response.json();
         console.log(data);
