@@ -39,14 +39,18 @@ const MunicipalityLogin = () => {
         console.log("responsesss: ", resJson);
         sessionStorage.setItem("jwt",resJson.jwt);
         authCtx.login(resJson.jwt);
+        sessionStorage.setItem("role",resJson.role);
 
-        if((resJson.status === 1)&&(resJson.role ==2)){
+        if((resJson.status === 1)&&(resJson.role === 2)){
+          // sessionStorage.setItem("jwtsuperadmin",resJson.jwt);
           navigate('/superadminservices');
         }
-        else if((resJson.status === 1)&&(resJson.role ==3)){
+        else if((resJson.status === 1)&&(resJson.role === 3)){
+          // sessionStorage.setItem("jwadmin",resJson.jwt);
           navigate('/municipalityservices');
         }
-        else if((resJson.status === 1)&&(resJson.role ==4)){
+        else if((resJson.status === 1)&&(resJson.role === 4)){
+          // sessionStorage.setItem("jwtsupervisor",resJson.jwt);
           navigate('/supervisorservices');
         }
         if( redirect === false ){

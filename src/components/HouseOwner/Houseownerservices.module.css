@@ -1,25 +1,16 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap'); */
-
 
 .home {
   margin-top: 100px;
   font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
   height: auto;
-  /* background-image: url(../images/homepage_background.jpg); */
-  /* background-size: cover; */
   padding-bottom: 1rem;
 }
 
 
 .writeup{
-  /* font-family: 'Montserrat', sans-serif; */
-  /* font-size: 17px; */
   font-size: large;
-  /* width: 90%; */
-  /* max-width: 40rem; */
   padding: 3rem;
-  /* margin: 2rem auto; */
   text-align: center;
 }
 
@@ -30,7 +21,6 @@
   list-style: none;
   margin-left: -40px;
   margin-bottom: 150px;
-  /* padding-left: 2rem; */
 }
 
 .logolinks li a {
@@ -41,8 +31,8 @@
 }
 
 .logolinks img {
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 150px;
 }
 
 .course {

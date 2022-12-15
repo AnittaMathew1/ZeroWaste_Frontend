@@ -1,9 +1,11 @@
 import React, { useEffect, useState , useRef} from 'react';
+import { useNavigate } from 'react-router-dom';
 import './wastecollectionupdate.css';
 
 
 const WasteCollectionUpdate = (props) => {
   let auth =  sessionStorage.getItem('jwt');
+  const navigate = useNavigate();
   var validated =false
   const wardInputRef = useRef();
   const [wardData, setWardData] = useState();
@@ -64,6 +66,9 @@ const handleStatusProgress = () => {
     })
     .then(resJson => {
       console.log("response: ", resJson);
+      if(resJson.status === 1){
+        navigate('/supervisorservices'); 
+      }
 
     })
     .catch(err => {
@@ -99,6 +104,9 @@ console.log(sessionStorage.getItem('jwt'))
   })
   .then(resJson => {
     console.log("response: ", resJson);
+    if(resJson.status === 1){
+      navigate('/supervisorservices'); 
+    }
 
   })
   .catch(err => {

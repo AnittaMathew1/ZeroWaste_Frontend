@@ -1,10 +1,9 @@
 import classes from './Municipalityservices.module.css';
-import img from './imgg1.png'
+import img from './logo1.0.jpg'
 import img1 from './img1.png'
-import img2 from './img2.png'
-import img3 from './img3.png'
-import img4 from './icon1.jpg'
-import img5 from './icon2.png'
+import img3 from './logo1.2.jpg'
+import img4 from './icon4.png'
+
 
 
 import { NavLink } from 'react-router-dom';
@@ -22,12 +21,12 @@ const SuperAdminservices = (props) => {
           <li>
             <NavLink to = "/bookingstatusreport" className={classes.usertext}>
                <img src={img}/> 
-              <h4>Collector Allocation</h4>
+              <h4>Allocate Collector</h4>
             </NavLink>
           </li>
           <li>
             <NavLink to ='/contractemployee' className={classes.usertext}>
-             <img src={img5}/>
+             <img src={img4}/>
               <h4>Contract Employees</h4>
             </NavLink>
           </li>
@@ -39,14 +38,8 @@ const SuperAdminservices = (props) => {
           </li>
           <li>
             <NavLink to ='/wastecollectionstatus' className={classes.usertext}>
-          <img src={img4}/> 
+          <img src={img3}/> 
               <h4>Waste Collection Status</h4>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to ='/Bookingstatus' className={classes.usertext}>
-          <img src={img2}/> 
-              <h4>Report</h4>
             </NavLink>
           </li>
         </ul>

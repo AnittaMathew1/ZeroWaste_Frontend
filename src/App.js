@@ -22,10 +22,7 @@ import SupervisorLandingPage from "./components/Municipalitypages/SupervisorDeta
 import SupervisorForm from "./components/Municipalitypages/SupervisorDetails/SupervisorForm";
 import SupervisorDetails from "./components/Municipalitypages/SupervisorDetails/SupervisorDetails";
 import PaymentHistory from "./components/HouseOwner/Payment/PaymentHistory";
-import ComplaintRegistration from "./components/HouseOwner/Complaint/ComplaintRegistration";
-import ComplaintStatus from "./components/HouseOwner/Complaint/ComplaintStatus";
-
-
+import PaymentReport from "./components/Municipalitypages/PaymentReport/PaymentReport";
 // import otpValidation from "./components/Projects/otpValidation"
 // import Register from "./components/Projects/Register";
 import Footer from "./components/Footer";
@@ -39,7 +36,6 @@ import ScrollToTop from "./components/ScrollToTop";
 import "./style.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Register from "./components/HouseOwner/Register";
 import BookingHistory from "./components/HouseOwner/BookingHistory";
 import Slotbooked from "./components/pages/Slotbooked";
 import Municipalitylogin from "./components/Municipalitypages/Municipalitylogin"
@@ -112,8 +108,7 @@ function App() {
         <Route path="/Supervisorform" element={<SupervisorForm />} />
         <Route path="/Supervisordetails" element={<SupervisorDetails />} />
         <Route path="/paymenthistory" element={<PaymentHistory />} />
-        <Route path="/complaintregistration" element={<ComplaintRegistration />} />
-        <Route path="/complaintstatus" element={<ComplaintStatus />} />
+        <Route path="/paymentreport" element={<PaymentReport />} />
         
 
         </Routes>

@@ -12,11 +12,7 @@ function Payment() {
     const [amount, setamount] = useState('');
     const navigate = useNavigate();
     const [totalAmount, setTotalAmount] = useState('');
-    let auth =  sessionStorage.getItem('jwt');
-      // console.log(auth)
-      // const fetchUserDetails = async () => {
-
-      //  const response=await
+    let auth =  sessionStorage.getItem('jwthouseowner');
        fetch('http://127.0.0.1:8000/zerowaste/houseowner/invoice/',{
           method: 'GET',
           headers:{
@@ -38,10 +34,6 @@ function Payment() {
             })
     const handlesubmit = (e) => {
         e.preventDefault();
-        // if (amount === "") {
-        //     alert("Please enter amount");
-        // }
-        // else {
             var options = {
                 key: "rzp_test_vCz7dMxFI6qC94",
                 key_secret: "395d1wGWipzT22lMFrAspjjx",
@@ -68,8 +60,6 @@ function Payment() {
             };
             var pay = new window.Razorpay(options);
             pay.open();
-            
-        // }
         fetch("http://127.0.0.1:8000/zerowaste/houseowner/payment/", {
             headers:{
                 Accept: 'application/json',
@@ -85,11 +75,6 @@ function Payment() {
                     })
                         .then(response => {
                         console.log("request: ", response);
-                        // if(response.status === 200){
-                        //   this.setState({
-                        //     redirect:true,
-                        //   })      
-                        // }
                         return response.json();
                         })
                         .then(resJson => {
@@ -115,8 +100,6 @@ function Payment() {
                             <div className="title">
                                 <div className="title-content">
                                     <h1>Razorpay Payment</h1>
-                                    {/* <p className='mt-3'>I hope the tutorial has helped you learn how to integrate Paytm payment gateway in ReactJS.</p> */}
-                                    {/* <a href="https://dev.to/rajamanickam/how-to-integrate-razorpay-payment-gateway-in-reactjs-5fnb" target="_blank" className='btn btn-success'>View Tutorial</a> */}
                                 </div>
                             </div>
                             <div className="technology">
@@ -130,7 +113,6 @@ function Payment() {
                         <div className="column-wrap justify-content-center">
                             <div className="fxt-form">
                                 <h3 className='mb-3'>Pay Now</h3>
-                                {/* <p>Enter the amount to be transferred to the virtual account as the <strong>test payment.</strong></p> */}
                                 <form>
                                     <div className="form-group mt-5">
                                         <input type="text" className="form-control" value={totalAmount}  placeholder={totalAmount} />

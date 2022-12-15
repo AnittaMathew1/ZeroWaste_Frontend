@@ -1,40 +1,56 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import DataTable from "react-data-table-component";
 import classes from './PaymentHistory.module.css';
 
-const PaymentHistory = () => {
-    const [paymentData, setPaymentData] = useState();
 
-        // fetch("http://127.0.0.1:8000/zerowaste/wards/",
-        // {
-        //   method: "GET",
-        // }).then(response => {
-        //     setPaymentData(response.data)
-        // });
 
-        // {paymentData?.map(data => {
-        // const month = data.month.toLocaleString('en-US',{month:'long'});
-        // const day = data.day.toLocaleString('en-US',{day:'2-digit'});
-        // const year = data.year.getFullYear();
-        // const amount = data.amount;
-        // })}
-            const month = "august";
-            const day="17";
-            const year ="2022";
-            const amount =232;
 
-    return(
-        <div className={classes.payment_item}>   
-             <div className={classes.payment_date}>
-            
-                <div className={classes.payment_date__month}>{month}</div>
-                <div className={classes.payment_date__year}>{year}</div>
-                <div className={classes.payment_date__day}>{day}</div>
-            </div>    
-            <div className={classes.payment_item__description}>
-                <h2>Paid Amount</h2>
-                <div className={classes.payment_item__price}>{amount}</div>
-            </div>
-        </div>    
-    )
+
+function PaymentHistory() {
+  const [paymentHistory, setPaymentHistory] = useState([]);
+ 
+    useEffect(()=>{
+      let auth =  sessionStorage.getItem('jwt');
+      
+       fetch('http://127.0.0.1:8000/zerowaste/houseowner/paymenthistory/',{
+        method: 'GET',
+        headers:{
+          Accept: 'application/json',
+                   'Content-Type': 'application/json',
+                   'Authorization': auth,
+           },
+          })
+          .then(response => {
+       
+      setPaymentHistory(response.data);
+          })
+    },[])
+    
+
+    const columns = [
+      {
+        name: "Payment Date",
+        selector: (row) => row.pay_date,
+        sortable:true,
+      },
+      {
+        name: "Amount Paid",
+        selector: (row) => row.totalamount,
+      },
+    ]
+
+
+
+
+  return (
+    <div className={classes.history}>
+    <h3>PAYMENT HISTORY</h3>
+    <DataTable columns={columns}
+     data={paymentHistory} 
+     pagination 
+     highlightOnHover/>
+    </div>
+  );
 }
+
 export default PaymentHistory;

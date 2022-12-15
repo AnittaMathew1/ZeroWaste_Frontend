@@ -39,7 +39,7 @@ const ContractEmployee = () => {
     console.log(auth);
     console.log(wardNo);
     const getCollectorDetails = (value)  => {
-      //API call
+      //API call FOR COLLECTOR LIST
       fetch("http://127.0.0.1:8000/zerowaste/corporation/collectorlist/", {
         headers:{
           Accept: 'application/json',
@@ -48,10 +48,7 @@ const ContractEmployee = () => {
            },
       method: "POST",
       body: JSON.stringify({
-
         wardno:value,
-        // jwt:sessionStorage.getItem("jwt"),
-  
        
       })
      
@@ -83,7 +80,6 @@ const ContractEmployee = () => {
        
         console.log(err);
       });
-      //setCollectorData();
     }
       useEffect(()=>{
         const fetchCollectorDetails = async () => {
@@ -170,7 +166,6 @@ const ContractEmployee = () => {
               f:item.f,
               key:item.f
             };
-            // console.log(formValues)
         
             setEditFormData(formValues);
             
@@ -192,8 +187,6 @@ const ContractEmployee = () => {
       });
     
       const message = await response.json();
-      // console.log(data);
-      console.log(index);
   
       const updateddata= data.filter(item => item.f !== index)
       setData(updateddata)
@@ -205,7 +198,6 @@ return (
     <div className={classes.contractEmployee}>
       <h1 className={classes.statushead}>Contract Employees</h1>
         <label className={classes.item}>Ward Number :
-                {/* <input className="inputarea" type="text" name="wardno" onChange={()=>handleWardno()} />  */}
             <div className={classes.dropdown}>
                 <select onChange={(e) => handleWardno(e)}
                 placeholder="Select Ward Number"
@@ -219,8 +211,6 @@ return (
         <div className={classes.bookingstatusreport}>
         <form onSubmit={handleEditFormSubmit}>
         <table class='table'>
-        {/* <Table striped bordered hover className='table'>  */} 
-        {/* <table class='table'> */}
           <thead>
             <tr >
               <th>First Name</th>
@@ -249,38 +239,13 @@ return (
                     <td>{item.e}</td>
                     <td >
                     <button type="button"  className={classes.button}  onClick={(event) => handleEditClick(event, item)}>Edit</button>
-                    <button type="Button" className={classes.button}  onClick={() => deleteHandler(item.c)}>Delete</button>
+                    <button type="Button" className={classes.button}  onClick={() => deleteHandler(item.f)}>Delete</button>
                     </td>  
                     </tr>
-                    // <ReadOnlyRow
-                    //   support={support}
-                    //   handleEditClick={handleEditClick}
-                    //   handleDeleteClick={handleDeleteClick} />
                   )}
                 </Fragment>
               ))}
             </tbody>
-          {/* <tbody>
-            {data
-              .map((item, index) =>(
-                <tr key={index}>
-                  <td>{item.a}</td>
-                  <td>{item.b}</td>
-                  <td>
-                    {item.c}
-                  <button type="Button" onClick={() => handleEditClick(item.c)} >Edit</button>
-
-                  <button type="Button" onClick={() => deleteHandler(item.c)}>Delete</button>
-                  </td>  
-                  </tr>))}
-                  {data.map((item) =>{
-                         {editDataId === item.c && (
-                          <EditableRow
-                            editFormData={editFormData}
-                            handleEditFormChange={handleEditFormChange}
-                            handleCancelClick={handleCancelClick} />
-                        )} })}    
-          </tbody> */}
           </table>
           </form>
           </div>

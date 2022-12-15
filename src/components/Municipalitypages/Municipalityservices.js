@@ -2,7 +2,8 @@
 import classes from './Municipalityservices.module.css';
 import img from './logo1.0.jpg'
 import img1 from './img1.png'
-import img2 from './img2.png'
+import img2 from './icon3.png'
+import img4 from './icon4.png'
 import img3 from './logo1.2.jpg'
 
 
@@ -31,17 +32,18 @@ const Homeservices = (props) => {
             </NavLink>
           </li>
           <li>
-            <NavLink to ='/updatewastedetails' className={classes.usertext}>
-           <img src={img1}/>   
-              <h4>Update Waste details</h4>
+            <NavLink to ='/contractemployeeservices' className={classes.usertext}>
+          <img src={img2}/> 
+              <h4>Supervisors</h4>
             </NavLink>
           </li>
           <li>
             <NavLink to ='/contractemployeeservices' className={classes.usertext}>
-          <img src={img2}/> 
-              <h4>Contract Employees Services</h4>
+          <img src={img4}/> 
+              <h4>Contract Employees</h4>
             </NavLink>
           </li>
+         
         </ul>
       </div>
 

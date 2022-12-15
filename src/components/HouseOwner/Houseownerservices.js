@@ -4,6 +4,7 @@ import img from './imgg1.png'
 import img1 from './img1.png'
 import img2 from './img2.png'
 import img3 from './img3.png'
+import img4 from './img1.0.png'
 
 
 import { NavLink } from 'react-router-dom';
@@ -32,7 +33,7 @@ const Homeservices = (props) => {
           </li>
           <li>
             <NavLink to ='/paymenthistory' className={classes.usertext}>
-             <img src={img3}/>
+             <img src={img4}/>
               <h4>Payment History</h4>
             </NavLink>
           </li>
@@ -46,18 +47,6 @@ const Homeservices = (props) => {
             <NavLink to ='/bookingstatus' className={classes.usertext}>
           <img src={img2}/> 
               <h4>Booking Status</h4>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to ='/complaintregistration' className={classes.usertext}>
-          <img src={img2}/> 
-              <h4>Register Complaint</h4>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to ='/complaintstatus' className={classes.usertext}>
-          <img src={img2}/> 
-              <h4>Complaint Status</h4>
             </NavLink>
           </li>
         </ul>

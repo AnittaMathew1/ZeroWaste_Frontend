@@ -178,7 +178,7 @@ return (
                     <td>{item.e}</td>
                     <td >
                     <button type="button"  className={classes.button}  onClick={(event) => handleEditClick(event, item)}>Edit</button>
-                    <button type="Button" className={classes.button}  onClick={() => deleteHandler(item.c)}>Delete</button>
+                    <button type="Button" className={classes.button}  onClick={() => deleteHandler(item.f)}>Delete</button>
                     </td>  
                     </tr>
                   )}

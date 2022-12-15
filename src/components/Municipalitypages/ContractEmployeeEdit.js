@@ -14,7 +14,7 @@ const ContractEmployeeEdit = ({
           type="text"
           required="required"
           placeholder="Enter email"
-          name="f"
+          name="c"
           value={editFormData.c}
           onChange={handleEditFormChange}
         ></input>
@@ -34,7 +34,7 @@ const ContractEmployeeEdit = ({
           type="text"
           required="required"
           placeholder="Enter Address"
-          name="c"
+          name="e"
           value={editFormData.e}
           onChange={handleEditFormChange}
         ></input>

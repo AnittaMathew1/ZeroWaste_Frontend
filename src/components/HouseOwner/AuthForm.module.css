@@ -79,18 +79,18 @@
   .actions .toggle {
     margin-top: -70px;
     background-color: transparent;
-    color: #fbf8fd;
+    color: #0a0a0a;
     border: none;
     padding: 0.15rem 1.5rem;
   }
   
   .actions .toggle:hover {
     background-color: transparent;
-    color: #f2f0f4;
+    color: #20472d;
   }
   .control .required-field {
     content: "hello";
-    color: red;
+    color: rgb(0, 0, 0);
   }
 .control i{
   color: red;

@@ -113,7 +113,7 @@ function NavBar() {
             {authCtx.isLoggedIn &&(
            
           <Link to={'/'}>
-            <button onClick={authCtx.logout} className='logout'> Logout </button>
+            <button onClick={authCtx.logout} className='logout' style={{ marginBottom: "2px" }}> Logout </button>
             </Link>
             )}
          

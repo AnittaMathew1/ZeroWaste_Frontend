@@ -8,7 +8,6 @@ import classes from './AuthForm.module.css';
 const Login = (props) => {
   const navigate=useNavigate();
   const [userValidationError, setuserValidationError] = useState('');
-  // const history = useHistory();
   const firstnameInputRef = useRef();
   const lastnameInputRef = useRef();
   const addressInputRef = useRef();
@@ -18,7 +17,6 @@ const Login = (props) => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const authCtx = useContext(AuthContext);
-  // const [issignup,setIssignup]=useState(true)
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [wardData, setWardData] = useState();
@@ -27,9 +25,12 @@ const Login = (props) => {
   const [loginValidationErrorr, setloginValidationErrorr] = useState('');
   const [phoneNoValidationErrorr, setPhoneNoValidationErrorr] = useState('');
   const [passwordValidationErrorr, setPasswordValidationErrorr] = useState('');
-const [redirect, setRedirect] = useState(false);
+const [redirect, setRedirect] = useState(true);
 const [pincodeValidationError, setPincodeValidationError] = useState('');
   const switchAuthModeHandler = () => {
+    setRedirect(false);
+    setEmailValidationErrorr('');
+    setPhoneNoValidationErrorr('');
     setIsLogin((prevState) => !prevState);
   };
   useEffect(()=>{
@@ -51,13 +52,6 @@ const [pincodeValidationError, setPincodeValidationError] = useState('');
     
     url =
         'http://127.0.0.1:8000/zerowaste/houseowner/signup/';
-        // const myJSON = JSON.stringify({
-        //   name: enteredName,
-        //   email: enteredEmail,
-        //   password: enteredPassword,
-        //   // returnSecureToken: true,
-        // });
-        // console.log(myJSON);
        fetch(url, {
           method: 'POST',
           body: JSON.stringify({
@@ -69,7 +63,6 @@ const [pincodeValidationError, setPincodeValidationError] = useState('');
             phoneno: enteredphoneno,
             email: enteredEmail,
             password: enteredPassword,
-            // returnSecureToken: true,
           }),
           headers: {
             'Content-Type': 'application/json',
@@ -82,31 +75,27 @@ const [pincodeValidationError, setPincodeValidationError] = useState('');
           return response.json();
         }) 
         .then(res => {
-          console.log("responseeee: ", res);
+          console.log("response: ", res);
           if(res.status === 1){
             setIsLogin(true);
             setRedirect(true); 
           }
-          if(redirect==false){
+          if(res.status === 0){
+            setRedirect(false);
             setEmailValidationErrorr(res.data.email[0]);
             setPhoneNoValidationErrorr(res.data.phoneno[0]);
           }
         });
-        //  .then(resJson => {
-        //    console.log("response: ", resJson);
-        //  });
   }
   const getWardData = () => {
     fetch("http://127.0.0.1:8000/zerowaste/wards/", 
     {
       method: "GET",
     }).then((response) => {
-        // console.log("response Ward data: ", response.json());
         return response.json();
       })
       .then(function (data) {
         setWardData(data);
-        console.log(data);
       })
       .catch(err => {
         console.log(err);
@@ -129,7 +118,6 @@ const [pincodeValidationError, setPincodeValidationError] = useState('');
         fetch(url, {
           method: 'POST',
           body: JSON.stringify({
-            // name: enteredName,
             email: enteredEmail,
             password: enteredPassword,
             returnSecureToken: true,
@@ -145,16 +133,15 @@ const [pincodeValidationError, setPincodeValidationError] = useState('');
           
         })
           .then((res) => {
-              console.log("responseeee: ", res.detail);
-              console.log(res.jwt);
+              console.log("response: ", res.detail);
               authCtx.login(res.jwt);
-              sessionStorage.setItem("jwt",res.jwt);
+              sessionStorage.setItem("jwthouseowner",res.jwt);
               if(res.status === 1){
                 setRedirect(true);
                 setIsLogin(true);
                 navigate('/houseownerservices')    
               }
-              if(redirect==false){
+              if(redirect === false){
                 setPasswordValidationErrorr(res.detail);
               }
             setIsLoading(false);
@@ -165,19 +152,8 @@ const [pincodeValidationError, setPincodeValidationError] = useState('');
                 let errorMessage = 'Authentication failed!';
                 alert('errorMessage');
                 console.log("responsess: ", res.detail);
-                  // if(res.status === 1){
-                  //   // setRedirect(true);
-                    
-                  //   navigate('/houseownerservices')    
-                  // }
-                  // else if(res.status !== 1){
-                  //   console.log("Anitta")
-                  //   setuserValidationError('Invalid Username or Password');
-                  //   alert(userValidationError);
-
                   if(res.header.redirect==false){
                     setloginValidationErrorr(res.detail);
-                    console.log(setuserValidationError);
                   }
 
                 if (data && data.error && data.error.message) {
@@ -189,9 +165,7 @@ const [pincodeValidationError, setPincodeValidationError] = useState('');
             }
           })
           .then((data) => {
-            console.log("hiiii",JSON.stringify(data.jwt))
-            // authCtx.setUser({userName:data.username})
-            // localStorage.setItem('jwt',JSON.stringify(data.jwt))
+            console.log(JSON.stringify(data.jwt))
           })
           .catch((err) => {
           });

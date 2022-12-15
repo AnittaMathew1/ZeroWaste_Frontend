@@ -42,7 +42,7 @@ const handleWasteid =(e)=> {
 }
 
 
-  let auth =  sessionStorage.getItem('jwt');
+  let auth =  sessionStorage.getItem('jwthouseowner');
 const handleSubmit = () => {
 
     fetch("http://127.0.0.1:8000/zerowaste/houseowner/slotbooking/", {

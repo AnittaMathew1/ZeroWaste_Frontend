@@ -8,11 +8,7 @@ function History() {
 
  
     useEffect(()=>{
-      let auth =  sessionStorage.getItem('jwt');
-      // console.log(auth)
-      // const fetchUserDetails = async () => {
-
-      //  const response=await
+      let auth =  sessionStorage.getItem('jwthouseowner');
        fetch('http://127.0.0.1:8000/zerowaste/houseowner/bookinghistory/',{
           method: 'GET',
           headers:{
